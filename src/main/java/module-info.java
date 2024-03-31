@@ -3,6 +3,6 @@ module com.example.activity4prac {
     requires javafx.fxml;
 
 
-    opens com.example.activity4prac to javafx.fxml;
-    exports com.example.activity4prac;
+    opens com.example.addressbook to javafx.fxml;
+    exports com.example.addressbook;
 }
