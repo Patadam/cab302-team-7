@@ -2,6 +2,10 @@ package com.example.addressbook;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.net.URL;
 
 public class HelloController {
     @FXML
@@ -14,6 +18,15 @@ public class HelloController {
     private Label Navigete_to_3;
     @FXML
     private Label Navigete_to_4;
+    @FXML
+    private ImageView imageView;
+
+    public void initialize(){
+        // Load image
+        Image image = new Image(getClass().getResourceAsStream("/com/example/addressbook/example_image.png"));
+        // Set image to ImageView
+        imageView.setImage(image);
+    }
 
 
     @FXML
@@ -36,4 +49,5 @@ public class HelloController {
     protected void onHelloButtonClick4() {
         Navigete_to_4.setText("Take me");
     }
+
 }

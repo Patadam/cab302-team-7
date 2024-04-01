@@ -26,6 +26,11 @@
 <!--  />-->
 <!--  <CheckBox fx:id="agreeCheckBox"-->
 <!--            text="I agree to the terms and conditions."/>-->
+
+  <HBox alignment="CENTER" spacing="10.0">
+    <ImageView fx:id="imageView" fitWidth="200" fitHeight="200" preserveRatio="true" />
+  </HBox>
+
   <HBox alignment="TOP_LEFT" spacing="10.0">
     <Label fx:id="welcomeText"/>
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
@@ -42,11 +47,7 @@
     <Label fx:id="Navigete_to_4"/>
     <Button text="Options" onAction="#onHelloButtonClick4"/>
   </HBox>
-<!--  <Label fx:id="welcomeText"/>-->
-<!--  <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 
-<!--  <Label fx:id="Navigete_to_1"/>-->
-<!--  <Button text="Tell" onAction="#onHelloButtonClick1"/>-->
   <HBox alignment="BOTTOM_CENTER" spacing="10.0">
     <Button fx:id="nextButton" text="Next" />
     <Button fx:id="nextButton" text="Next" />
