@@ -3,23 +3,25 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+
+
+
 <VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.addressbook.HelloController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
   </padding>
 
-  <Label text="Welcome to the Wellbeing Application.
-  Turn your computer off."
+<!--  welcome Title messeges-->
+  <Label text="Welcome to the Wellbeing Application. Turn your computer off."
          wrapText="true"
          style="-fx-font-size: 20px; -fx-alignment: center;"/>
+
 <!--  <TextArea fx:id="termsAndConditions"-->
 <!--            wrapText="true"-->
 <!--            editable="false"-->
@@ -27,31 +29,29 @@
 <!--  <CheckBox fx:id="agreeCheckBox"-->
 <!--            text="I agree to the terms and conditions."/>-->
 
-  <HBox alignment="CENTER" spacing="10.0">
-    <ImageView fx:id="imageView" fitWidth="200" fitHeight="200" preserveRatio="true" />
-  </HBox>
-
-  <HBox alignment="TOP_LEFT" spacing="10.0">
+<!--  Navigete Button Setup-->
+  <HBox alignment="TOP_CENTER" spacing="10.0">
     <Label fx:id="welcomeText"/>
     <Button text="Hello!" onAction="#onHelloButtonClick"/>
-
     <Label fx:id="Navigete_to_1"/>
     <Button text="Tell" onAction="#onHelloButtonClick1"/>
-
     <Label fx:id="Navigete_to_2"/>
     <Button text="Me" onAction="#onHelloButtonClick2"/>
-
     <Label fx:id="Navigete_to_3"/>
     <Button text="The" onAction="#onHelloButtonClick3"/>
-
     <Label fx:id="Navigete_to_4"/>
     <Button text="Options" onAction="#onHelloButtonClick4"/>
   </HBox>
 
+<!--  Image HBox setup-->
+  <HBox alignment="CENTER" spacing="10.0">
+    <ImageView fx:id="imageView" fitWidth="400" fitHeight="400" preserveRatio="true" />
+  </HBox>
+
+<!--  ContactUs HBox setup-->
   <HBox alignment="BOTTOM_CENTER" spacing="10.0">
-    <Button fx:id="nextButton" text="Next" />
-    <Button fx:id="nextButton" text="Next" />
-    <Button fx:id="nextButton" text="Next" disable="true"/>
+    <Label fx:id="contactUsLabel" visible="false"/>
+    <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
   </HBox>
 
 </VBox>
