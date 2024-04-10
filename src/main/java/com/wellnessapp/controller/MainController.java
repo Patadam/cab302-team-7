@@ -1,4 +1,4 @@
-package com.example.wellnessapp;
+package com.wellnessapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class HelloController {
+public class MainController {
     @FXML    private Label welcomeText;
     @FXML    private Label Navigete_to_1;
     @FXML    private Label Navigete_to_2;
@@ -18,7 +18,7 @@ public class HelloController {
 
     //Load image in Home GUI
     public void initialize(){
-        Image image = new Image(getClass().getResourceAsStream("/com/example/wellnessapp/Computer.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/wellnessapp/Computer.png"));
         imageView.setImage(image);  //Loading an image with ImageView
     }
 
