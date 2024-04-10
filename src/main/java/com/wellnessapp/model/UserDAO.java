@@ -20,7 +20,7 @@ public class UserDAO implements IUserDAO {
             createTable.execute(
                     "CREATE TABLE IF NOT EXISTS users ("
                             + "username VARCHAR NOT NULL, "
-                            + "password VARCHAR NOT NULL, "
+                            + "password VARCHAR NOT NULL "
                             + ")"
             );
         } catch (SQLException ex) {
