@@ -1,5 +1,6 @@
 package com.wellnessapp.controller;
 
+import com.wellnessapp.model.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -20,6 +21,13 @@ public class MainController {
     public void initialize(){
         Image image = new Image(getClass().getResourceAsStream("/com/wellnessapp/Computer.png"));
         imageView.setImage(image);  //Loading an image with ImageView
+
+        initialiseDatabase();
+    }
+
+    private void initialiseDatabase() {
+        UserDAO userDAO = new UserDAO();
+        userDAO.close();
     }
 
     //Hello! button Click Setup
