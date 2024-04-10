@@ -1,4 +1,5 @@
-package com.example.addressbook;
+package com.wellnessapp.model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

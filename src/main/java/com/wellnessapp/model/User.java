@@ -1,4 +1,4 @@
-package com.example.addressbook;
+package com.wellnessapp.model;
 
 public class User {
     private String username;
