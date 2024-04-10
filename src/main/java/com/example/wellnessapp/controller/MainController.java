@@ -1,4 +1,4 @@
-package com.example.addressbook;
+package com.example.wellnessapp;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,7 +18,7 @@ public class HelloController {
 
     //Load image in Home GUI
     public void initialize(){
-        Image image = new Image(getClass().getResourceAsStream("/com/example/addressbook/Computer.png"));
+        Image image = new Image(getClass().getResourceAsStream("/com/example/wellnessapp/Computer.png"));
         imageView.setImage(image);  //Loading an image with ImageView
     }
 

@@ -1,4 +1,4 @@
-package com.example.addressbook;
+package com.example.wellnessapp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
