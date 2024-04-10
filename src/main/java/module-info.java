@@ -4,6 +4,8 @@ module com.example.activity4prac {
     requires java.sql;
 
 
-    opens com.example.addressbook to javafx.fxml;
-    exports com.example.addressbook;
+    opens com.wellnessapp to javafx.fxml;
+    exports com.wellnessapp;
+    exports com.wellnessapp.controller;
+    opens com.wellnessapp.controller to javafx.fxml;
 }
