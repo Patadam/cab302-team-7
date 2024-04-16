@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    // patrick-code stuff
     // Constants defining the window title and size
     public static final String TITLE = "Home";
     public static final int WIDTH = 900;
