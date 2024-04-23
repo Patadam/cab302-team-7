@@ -1,0 +1,24 @@
+/*
+https://dlsc.com/2014/07/11/javafx-tip-7-use-css-color-constants-derive-colors/
+https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
+*/
+
+.root {
+    -primary-900: #314995;
+    -primary-700: #3E5AB6;
+    -primary-500: #4A6AD4;
+    -primary-300: #738CDE;
+}
+
+/* Button styles */
+.button {
+    -fx-background-color: -primary-500;
+    -fx-border-radius: 9999px;
+    -fx-background-radius: 9999px;
+    -fx-text-fill: white;
+    -fx-padding: 6px 12px;
+}
+
+.button-test-300 {
+    -fx-background-color: -primary-300;
+}
