@@ -90,8 +90,14 @@ public class MainController {
             Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
             scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
             stage.setScene(scene);
+
+            // pass the stage to the controller for use in the controller.
+            MoodPopupController controller = fxmlLoader.getController();
+            controller.setStage(stage);
+
             stage.centerOnScreen();
-            stage.initStyle(StageStyle.UTILITY);
+            stage.initStyle(StageStyle.UNIFIED);
+
             stage.show();
             moodStage = stage;
             isPopupShowing = true;
@@ -101,6 +107,11 @@ public class MainController {
                     //System.out.println("Hello World");
                     isPopupShowing = false;
                 }
+            });
+
+            stage.setOnHidden(event -> {
+                System.out.println("[mood] closed a popup");
+                isPopupShowing = false;
             });
 
         } else {

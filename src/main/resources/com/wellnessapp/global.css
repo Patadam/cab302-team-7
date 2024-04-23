@@ -1,6 +1,9 @@
 /*
 https://dlsc.com/2014/07/11/javafx-tip-7-use-css-color-constants-derive-colors/
 https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
+
+JavaFX elements CSS default references
+https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#button
 */
 
 .root {
@@ -21,6 +24,7 @@ https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
     -fx-background-radius: 9999px;
     -fx-text-fill: white;
     -fx-padding: 6px 12px;
+    -fx-cursor: hand;
 }
 
 .button-test-300 {
@@ -28,6 +32,48 @@ https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
 }
 
 .btn-secondary {
-    -fx-background-color: -gray-500;
+    -fx-background-color: -gray-300;
     -fx-text-fill: black;
+}
+.btn-secondary:hover {
+    -fx-background-color: -gray-500;
+}
+
+.popup {
+    -fx-background-color: white;
+}
+
+.text-field {
+    -fx-background-color: #EEEEEE;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: -gray-500;
+    -fx-border-width: 1;
+}
+.text-field:focused {
+    -fx-border-color: -primary-700;
+    -fx-background-color: #e5e7eb;
+}
+
+.text-area {
+    -fx-border-radius: 4px;
+    -fx-border-color: -gray-500;
+    -fx-border-width: 1;
+}
+
+.text-area .content {
+    -fx-background-color: #EEEEEE;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 4px;
+}
+
+/*--// ComboBox //--*/
+.combo-box {
+    -fx-background-color: #EEEEEE;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-border-color: -gray-500;
+    -fx-border-width: 1;
 }

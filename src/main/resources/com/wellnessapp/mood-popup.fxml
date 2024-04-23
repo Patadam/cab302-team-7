@@ -13,23 +13,41 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 
-<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
+<?import javafx.scene.image.ImageView?>
+<VBox alignment="TOP_CENTER" styleClass="popup" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
   </padding>
-  <Label text="Wellness Mood Entry" wrapText="true" style="-fx-font-size: 20px; -fx-alignment: center;"/>
+  <HBox spacing="20">
+    <ImageView fx:id="moodIcon" fitWidth="35" fitHeight="35" preserveRatio="true" />
+    <Label text="Mood entry" wrapText="true" style="-fx-font-size: 20px;"/>
+  </HBox>
+
   <VBox spacing="4">
     <padding>
       <Insets bottom="6" top="6" />
     </padding>
     <!--// Type of entry //-->
+    <!--
     <Label text="Type" wrapText="true" style="-fx-font-size: 16px; -fx-alignment: center;"/>
-    <ComboBox fx:id="WellnessEntryType" layoutX="15.0" layoutY="33.0" promptText="Select Entry Type">
+    <ComboBox fx:id="WellnessEntryType" prefWidth="Infinity" layoutX="15.0" layoutY="33.0" promptText="Select Entry Type">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Mood" />
           <String fx:value="Hydration" />
           <String fx:value="Sleep" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    -->
+    <!--// Entry Value //-->
+    <Label text="Mood" wrapText="true" style="-fx-font-size: 16px; -fx-alignment: center;"/>
+    <ComboBox fx:id="MoodValue" prefWidth="Infinity" layoutX="15.0" layoutY="33.0" promptText="Select mood">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Happy" />
+          <String fx:value="Neutral" />
+          <String fx:value="Sad" />
         </FXCollections>
       </items>
     </ComboBox>
@@ -49,10 +67,11 @@
     </HBox>
     <!--// Comment //-->
     <Label text="Comment" wrapText="true" style="-fx-font-size: 16px;"/>
-    <TextArea />
+    <TextArea styleClass="text-area"/>
   </VBox>
+  <!--// Buttons //-->
   <HBox alignment="BOTTOM_LEFT" spacing="8">
     <Button fx:id="createEntryBtn" text="Create Entry" onAction="#onCreateEntry" />
-    <Button fx:id="cancelEntryBtn" text="Cancel" onAction="#onCancelEntry" styleClass="btn-secondary" />
+    <Button fx:id="cancelEntryBtn" text="Cancel" styleClass="btn-secondary" />
   </HBox>
 </VBox>

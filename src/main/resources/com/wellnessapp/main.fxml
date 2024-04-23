@@ -52,8 +52,8 @@
   <HBox alignment="BOTTOM_CENTER" spacing="10.0">
     <Label fx:id="contactUsLabel" visible="false"/>
     <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
+    <Button fx:id="moodLogPopupButton" text="Add new Mood entry" onAction="#onMoodLogPopupButton" />
   </HBox>
 
-  <Button fx:id="moodLogPopupButton" styleClass="button-test-300" text="Add new Mood entry" onAction="#onMoodLogPopupButton" />
 
 </VBox>
