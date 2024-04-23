@@ -2,6 +2,7 @@ package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
 import com.wellnessapp.model.UserDAO;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import javafx.beans.binding.Bindings;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -69,17 +74,38 @@ public class MainController {
         Navigete_to_4.setText("Take me");
     }
 
+
+    private Stage moodStage;
+    @FXML private Button moodLogPopupButton;
+    private boolean isPopupShowing = false;
     @FXML
     protected void onMoodLogPopupButton() throws IOException {
-        final int WIDTH = 300;
-        final int HEIGHT = 400;
-        Stage stage = new Stage();
-        stage.setTitle("TEST");
-        Pane pane = new Pane();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-popup.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
-        stage.setScene(scene);
-        stage.show();
-    }
+        if (!isPopupShowing) {
+            final int WIDTH = 300;
+            final int HEIGHT = 400;
+            Stage stage = new Stage();
+            stage.setTitle("New Mood Entry");
+            Pane pane = new Pane();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-popup.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
+            scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+            moodStage = stage;
+            isPopupShowing = true;
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    //System.out.println("Hello World");
+                    isPopupShowing = false;
+                }
+            });
 
+        } else {
+            moodStage.centerOnScreen();
+            moodStage.requestFocus();
+        }
+    }
 }
