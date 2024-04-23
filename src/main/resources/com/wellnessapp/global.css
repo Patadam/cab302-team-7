@@ -8,6 +8,10 @@ https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
     -primary-700: #3E5AB6;
     -primary-500: #4A6AD4;
     -primary-300: #738CDE;
+
+    -gray-700: #9EA6AD;
+    -gray-500: #B0B6BC;
+    -gray-300: #C9CFD4;
 }
 
 /* Button styles */
@@ -21,4 +25,9 @@ https://docs.oracle.com/javafx/2/css_tutorial/jfxpub-css_tutorial.htm
 
 .button-test-300 {
     -fx-background-color: -primary-300;
+}
+
+.btn-secondary {
+    -fx-background-color: -gray-500;
+    -fx-text-fill: black;
 }
