@@ -1,11 +1,18 @@
 package com.wellnessapp.controller;
 
+import com.wellnessapp.Main;
 import com.wellnessapp.model.UserDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
     @FXML    private Label welcomeText;
@@ -60,6 +67,19 @@ public class MainController {
     @FXML
     protected void onHelloButtonClick4() {
         Navigete_to_4.setText("Take me");
+    }
+
+    @FXML
+    protected void onMoodLogPopupButton() throws IOException {
+        final int WIDTH = 300;
+        final int HEIGHT = 400;
+        Stage stage = new Stage();
+        stage.setTitle("TEST");
+        Pane pane = new Pane();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-popup.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
