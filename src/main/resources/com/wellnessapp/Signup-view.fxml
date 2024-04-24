@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.wellnessapp.controller.SignUpController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Sign Up" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <GridPane alignment="CENTER" hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" minWidth="100"/>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
+        </columnConstraints>
+
+        <!-- a username can be added it will be a textfield-->
+
+        <TextField fx:id="emailField" promptText="Email Address" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <PasswordField fx:id="passwordField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Button text="Sign Up" onAction="#handleSignUp" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+
+    </GridPane>
+
+    <Text>
+        <TextFlow>
+            <Text>Already have an account? </Text>
+            <Hyperlink fx:id="loginLink" text="Login" onAction="#goToLoginPage"/>
+        </TextFlow>
+    </Text>
+
+</VBox>
