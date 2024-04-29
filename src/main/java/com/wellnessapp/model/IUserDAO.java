@@ -10,10 +10,10 @@ public interface IUserDAO {
     public void insert(User user);
 
     /**
-     * Updates an existing user in the database
-     * @param user The user to update
-     */
-    public void update(User user);
+    //     * Updates an existing user in the database
+    //     * @param user The user to update
+    //     */
+    //    //public void update(User user);
 
     /**
      * Deletes a user from the database.

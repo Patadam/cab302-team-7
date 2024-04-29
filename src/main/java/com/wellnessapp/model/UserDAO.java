@@ -55,13 +55,27 @@ public class UserDAO implements IUserDAO {
             e.printStackTrace();
         }
     }
-    @Override
-    public void update(User user) {
-        // Todo Later: Create a PreparedStatement to run the UPDATE query
-    }
+//    @Override
+//    public void update(User user) {
+//        try {
+//            PreparedStatement statement = connection.prepareStatement("UPDATE users SET email = ?," +
+//                    " password = ?");
+//            statement.setString(1, user.getEmail());
+//            statement.setString(2, user.getPassword());
+//            statement.executeUpdate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     @Override
     public void delete(User user) {
-        // Todo Later: Create a PreparedStatement to run the DELETE query
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE email = ?");
+            statement.setString(1, user.getEmail());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public List<User> getAll() {
