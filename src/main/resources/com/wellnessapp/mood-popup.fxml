@@ -55,7 +55,7 @@
     <HBox spacing="8">
       <VBox>
         <Label text="Date" wrapText="true" style="-fx-font-size: 16px;"/>
-        <DatePicker/>
+        <DatePicker fx:id="datePicker" />
       </VBox>
       <VBox>
         <Label text="Time" wrapText="true" style="-fx-font-size: 16px;"/>
@@ -67,7 +67,7 @@
     </HBox>
     <!--// Comment //-->
     <Label text="Comment" wrapText="true" style="-fx-font-size: 16px;"/>
-    <TextArea styleClass="text-area"/>
+    <TextArea fx:id="commentField" styleClass="text-area"/>
   </VBox>
   <!--// Buttons //-->
   <HBox alignment="BOTTOM_LEFT" spacing="8">

@@ -7,13 +7,12 @@ import com.wellnessapp.model.MoodEntry;
 import com.wellnessapp.model.MoodManager;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -24,6 +23,8 @@ public class MoodPopupController extends BaseController {
     @FXML private TextField timeMinutes;
     @FXML private ImageView moodIcon;
     @FXML private ComboBox moodValue;
+    @FXML private DatePicker datePicker;
+    @FXML private TextArea commentField;
     private MoodManager moodManager;
     final private LocalDateTime now = LocalDateTime.now();
 
@@ -37,6 +38,7 @@ public class MoodPopupController extends BaseController {
         final String minutes = now.format(DateTimeFormatter.ofPattern("mm"));
         timeHours.setText(hours);
         timeMinutes.setText(minutes);
+        datePicker.setValue(LocalDate.now());
 
         loadImages();
     }
@@ -50,16 +52,30 @@ public class MoodPopupController extends BaseController {
     protected void onCreateEntry() throws SQLException {
         final boolean isInputValid = validateInputs();
         if (isInputValid) {
-            System.out.println();
             final MoodType mood = MoodType.valueOf(moodValue.getValue().toString().toUpperCase());
-            MoodEntry entry = new MoodEntry(mood);
+            final String hours = timeHours.getText();
+            final String minutes = timeMinutes.getText();
+            final LocalDate date = datePicker.getValue();
+            final LocalDateTime dateTime = LocalDateTime.parse(date + " " + hours + ":" + minutes, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            final String comment = commentField.getText();
+
+            MoodEntry entry = new MoodEntry(mood, dateTime, comment);
             moodManager.addMoodEntry(entry);
             getStage().hide();
         }
     }
 
     private boolean validateInputs() {
+        final int hours = Integer.parseInt(timeHours.getText());
+        final int minutes = Integer.parseInt(timeHours.getText());
+
         if (moodValue.getValue() == null) {
+            return false;
+        }
+        if (hours > 23 || hours < 0) {
+            return false;
+        }
+        if (minutes > 59 || minutes < 0) {
             return false;
         }
         return true;
@@ -68,16 +84,5 @@ public class MoodPopupController extends BaseController {
     @FXML
     protected void onCancelEntry() {
         getStage().hide();
-    }
-
-    @FXML
-    protected void onValidateHours(){
-        //String text = timeHours.getText();
-        //if (text.matches("^\\\\d{1,2}D\\\\d{1,2}H\\\\d{1,2}M$")) {
-        //    System.out.println("Valid hours");
-        //} else {
-        //   final String hours = now.format(DateTimeFormatter.ofPattern("hh"));
-        //    timeHours.setText(hours);
-        //}
     }
 }
