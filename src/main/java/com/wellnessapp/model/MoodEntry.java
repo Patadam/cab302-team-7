@@ -25,26 +25,6 @@ public class MoodEntry implements IMoodEntry {
     }
 
     /**
-     * Constructs a mood entry with a specified timestamp but without any comment.
-     * @param mood The mood recorded in this entry.
-     * @param timestamp The date and time when the mood was recorded.
-     * @see #MoodEntry(MoodType, LocalDateTime, String) MoodEntry(MoodType, LocalDateTime, String) for detailed parameter information.
-     */
-    public MoodEntry(MoodType mood, LocalDateTime timestamp) {
-        this(mood, timestamp, "");
-    }
-
-    /**
-     * Constructs a mood entry with a comment but uses the current time as the timestamp.
-     * @param mood The mood recorded in this entry.
-     * @param comment Additional text about the mood.
-     * @see #MoodEntry(MoodType, LocalDateTime, String) MoodEntry(MoodType, LocalDateTime, String) for detailed parameter information.
-     */
-    public MoodEntry(MoodType mood, String comment) {
-        this(mood, LocalDateTime.now(), comment);
-    }
-
-    /**
      * Constructs a mood entry with only the mood specified, using the current time as the timestamp and no comment.
      * @param mood The mood recorded in this entry.
      * @see #MoodEntry(MoodType, LocalDateTime, String) MoodEntry(MoodType, LocalDateTime, String) for detailed parameter information.
