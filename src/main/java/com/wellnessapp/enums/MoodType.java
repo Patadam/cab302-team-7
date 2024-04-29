@@ -1,7 +1,7 @@
 package com.wellnessapp.enums;
 
 public enum MoodType {
-    UNHAPPY,
+    SAD,
     NEUTRAL,
     HAPPY
 }
