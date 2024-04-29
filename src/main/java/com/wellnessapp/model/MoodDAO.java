@@ -1,6 +1,9 @@
 package com.wellnessapp.model;
 
+import com.wellnessapp.enums.MoodType;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoodDAO implements IMoodDAO {
@@ -36,7 +39,7 @@ public class MoodDAO implements IMoodDAO {
     public void Create(MoodEntry entry) throws SQLException {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO moods (mood, timestamp, comment) VALUES (?, ?, ?)");
-            statement.setString(1, entry.getMood().toString());
+            statement.setString(1, entry.getMood().toString().toUpperCase());
             statement.setTimestamp(2, java.sql.Timestamp.valueOf(entry.getTimestamp()));
             statement.setString(3, entry.getComment());
             statement.executeUpdate();
@@ -56,6 +59,22 @@ public class MoodDAO implements IMoodDAO {
 
     @Override
     public List<MoodEntry> getAllEntries() {
-        return null;
+        List<MoodEntry> entries = new ArrayList<>();
+        try {
+            ResultSet r = connection.createStatement().executeQuery("SELECT * FROM moods ORDER BY timestamp");
+            while (r.next()) {
+                int id = r.getInt("id");
+                MoodType mood = MoodType.valueOf(r.getString("mood"));
+                LocalDateTime dateTime = r.getTimestamp("timestamp").toLocalDateTime();
+                String comment = r.getString("comment");
+
+                final MoodEntry entry = new MoodEntry(mood, dateTime, comment);
+                entry.setId(id);
+                entries.add(entry);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return entries;
     }
 }

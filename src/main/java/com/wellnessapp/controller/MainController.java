@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController extends BaseController {
     @FXML    private Label welcomeText;
     @FXML    private Label Navigete_to_1;
     @FXML    private Label Navigete_to_2;
@@ -89,5 +89,16 @@ public class MainController {
             popup.centerOnScreen();
             popup.requestFocus();
         }
+    }
+
+    @FXML
+    protected void onMoodChartButton() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-chart-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+        getStage().setTitle("Mood Chart");
+        getStage().setScene(scene);
+        getStage().show();
+        getStage().centerOnScreen();
     }
 }

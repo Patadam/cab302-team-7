@@ -5,7 +5,6 @@ import com.wellnessapp.enums.MoodType;
 import com.wellnessapp.model.MoodDAO;
 import com.wellnessapp.model.MoodEntry;
 import com.wellnessapp.model.MoodManager;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -25,6 +24,7 @@ public class MoodPopupController extends BaseController {
     @FXML private ComboBox moodValue;
     @FXML private DatePicker datePicker;
     @FXML private TextArea commentField;
+    @FXML private Label errorText;
     private MoodManager moodManager;
     final private LocalDateTime now = LocalDateTime.now();
 
@@ -34,7 +34,7 @@ public class MoodPopupController extends BaseController {
     public void initialize(){
         moodManager = new MoodManager(new MoodDAO());
 
-        final String hours = now.format(DateTimeFormatter.ofPattern("hh"));
+        final String hours = now.format(DateTimeFormatter.ofPattern("HH"));
         final String minutes = now.format(DateTimeFormatter.ofPattern("mm"));
         timeHours.setText(hours);
         timeMinutes.setText(minutes);
@@ -70,14 +70,18 @@ public class MoodPopupController extends BaseController {
         final int minutes = Integer.parseInt(timeHours.getText());
 
         if (moodValue.getValue() == null) {
+            errorText.setText("You must select a mood");
             return false;
         }
         if (hours > 23 || hours < 0) {
+            errorText.setText("The set hour cannot exceed 23 or be under 0");
             return false;
         }
         if (minutes > 59 || minutes < 0) {
+            errorText.setText("The set minute cannot exceed 59 or be under 0");
             return false;
         }
+        errorText.setText("");
         return true;
     }
 

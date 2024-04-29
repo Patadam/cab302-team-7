@@ -77,3 +77,7 @@ https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#button
     -fx-border-color: -gray-500;
     -fx-border-width: 1;
 }
+
+.error-text {
+    -fx-text-fill: red;
+}

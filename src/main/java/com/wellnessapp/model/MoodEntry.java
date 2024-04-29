@@ -1,6 +1,8 @@
 package com.wellnessapp.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import com.wellnessapp.enums.MoodType;
 
 public class MoodEntry implements IMoodEntry {
