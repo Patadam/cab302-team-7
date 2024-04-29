@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoodDAO implements IMoodDAO {
-    private final Connection connection;
+    public final Connection connection;
     public MoodDAO() {
         connection = DatabaseConnection.getInstance();
         createTable();
@@ -40,7 +40,7 @@ public class MoodDAO implements IMoodDAO {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO moods (mood, timestamp, comment) VALUES (?, ?, ?)");
             statement.setString(1, entry.getMood().toString().toUpperCase());
-            statement.setTimestamp(2, java.sql.Timestamp.valueOf(entry.getTimestamp()));
+            statement.setTimestamp(2, Timestamp.valueOf(entry.getTimestamp()));
             statement.setString(3, entry.getComment());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -55,6 +55,28 @@ public class MoodDAO implements IMoodDAO {
     @Override
     public void Delete(MoodEntry entry) {
 
+    }
+
+    @Override
+    public MoodEntry getEntryById(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM moods WHERE id = ?");
+            statement.setInt(1, id);
+            ResultSet r = statement.executeQuery();
+            if (r.next()) {
+                int entryId = r.getInt("id");
+                MoodType mood = MoodType.valueOf(r.getString("mood"));
+                LocalDateTime dateTime = r.getTimestamp("timestamp").toLocalDateTime();
+                String comment = r.getString("comment");
+
+                MoodEntry entry = new MoodEntry(mood, dateTime, comment);
+                entry.setId(entryId);
+                return entry;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override
