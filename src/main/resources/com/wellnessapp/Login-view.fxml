@@ -6,35 +6,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
-<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.wellnessapp.controller.LoginController">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
-    <Label text="Login" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-
-    <GridPane alignment="CENTER" hgap="10" vgap="10">
-        <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" minWidth="100"/>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
-        </columnConstraints>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.wellnessapp.controller.LoginController">
+    <!--    <ImageView>-->
+    <!--        <Image url="@/path/to/image.png"/>-->
+    <!--    </ImageView>-->
+    <VBox alignment="CENTER" spacing="10" prefHeight="100" prefWidth="100">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
 
 
-        <TextField fx:id="emailField" promptText="Email" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-        <PasswordField fx:id="passwordField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <!-- a username can be added it will be a textfield-->
+        <Label text="Login" style="-fx-font-size: 20px; -fx-font-weight: bold;" alignment="CENTER" />
 
-        <Button text="Login" onAction="#handleLogin" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    </GridPane>
+        <TextField fx:id="emailField" promptText="Email Address" alignment="CENTER" maxWidth="200"/>
 
-    <Text>
-        <TextFlow>
+        <PasswordField fx:id="passwordField" promptText="Password" alignment="CENTER"  maxWidth="200"/>
+
+
+        <Button text="Login" onAction="#handleLogin" alignment="CENTER" />
+
+        <HBox alignment="CENTER">
             <Text>Don't have an account? </Text>
-            <Hyperlink fx:id="signupLink" text="Sign Up" onAction="#goToSignUpPage"/>
-        </TextFlow>
-    </Text>
-</VBox>
+            <Hyperlink fx:id="signupLink" text="Sign-up" onAction="#goToSignUpPage"/>
+        </HBox>
+
+
+    </VBox>
+</StackPane>

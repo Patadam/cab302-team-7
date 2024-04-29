@@ -10,38 +10,36 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.wellnessapp.controller.SignUpController">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.wellnessapp.controller.SignUpController">
+<!--    <ImageView>-->
+<!--        <Image url="@/path/to/image.png"/>-->
+<!--    </ImageView>-->
+<VBox alignment="CENTER" spacing="10" prefHeight="100" prefWidth="100">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <Label text="Sign Up" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-
-    <GridPane alignment="CENTER" hgap="10" vgap="10">
-        <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" minWidth="100"/>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="200"/>
-        </columnConstraints>
 
         <!-- a username can be added it will be a textfield-->
+        <Label text="Sign Up" style="-fx-font-size: 20px; -fx-font-weight: bold;" alignment="CENTER" />
 
-        <TextField fx:id="emailField" promptText="Email Address" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-        <PasswordField fx:id="passwordField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="emailField" promptText="Email Address" alignment="CENTER" maxWidth="200"/>
 
-        <Button text="Sign Up" onAction="#handleSignUp" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <PasswordField fx:id="passwordField" promptText="Password" alignment="CENTER"  maxWidth="200"/>
 
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" alignment="CENTER"  maxWidth="200"/>
 
-    </GridPane>
+        <Button text="Sign Up" onAction="#handleSignUp" alignment="CENTER" />
 
-    <Text>
-        <TextFlow>
-            <Text>Already have an account? </Text>
-            <Hyperlink fx:id="loginLink" text="Login" onAction="#goToLoginPage"/>
-        </TextFlow>
-    </Text>
+            <HBox alignment="CENTER">
+                <Text>Already have an account? </Text>
+                <Hyperlink fx:id="loginLink" text="Login" onAction="#goToLoginPage"/>
+            </HBox>
+
 
 </VBox>
+</StackPane>
