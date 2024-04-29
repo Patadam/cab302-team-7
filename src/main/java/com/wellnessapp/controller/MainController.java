@@ -2,7 +2,7 @@ package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
 import com.wellnessapp.model.UserDAO;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,10 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import javafx.beans.binding.Bindings;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -39,7 +35,6 @@ public class MainController {
 
     private void initialiseDatabase() {
         UserDAO userDAO = new UserDAO();
-        userDAO.close();
     }
 
     //Hello! button Click Setup
@@ -74,13 +69,11 @@ public class MainController {
         Navigete_to_4.setText("Take me");
     }
 
-
-    private Stage moodStage;
-    @FXML private Button moodLogPopupButton;
-    private boolean isPopupShowing = false;
+    // Handle popup for mood log
+    private Stage popup = null;
     @FXML
     protected void onMoodLogPopupButton() throws IOException {
-        if (!isPopupShowing) {
+        if (popup == null || !popup.isShowing()) {
             final int WIDTH = 300;
             final int HEIGHT = 400;
             Stage stage = new Stage();
@@ -89,34 +82,12 @@ public class MainController {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-popup.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
             scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+            popup = stage;
             stage.setScene(scene);
-
-            // pass the stage to the controller for use in the controller.
-            MoodPopupController controller = fxmlLoader.getController();
-            controller.setStage(stage);
-
-            stage.centerOnScreen();
-            stage.initStyle(StageStyle.UNIFIED);
-
             stage.show();
-            moodStage = stage;
-            isPopupShowing = true;
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    //System.out.println("Hello World");
-                    isPopupShowing = false;
-                }
-            });
-
-            stage.setOnHidden(event -> {
-                System.out.println("[mood] closed a popup");
-                isPopupShowing = false;
-            });
-
         } else {
-            moodStage.centerOnScreen();
-            moodStage.requestFocus();
+            popup.centerOnScreen();
+            popup.requestFocus();
         }
     }
 }
