@@ -12,4 +12,5 @@ module com.wellnessapp {
     exports com.wellnessapp;
     exports com.wellnessapp.controller;
     exports com.wellnessapp.model;
+    exports com.wellnessapp.enums;
 }
