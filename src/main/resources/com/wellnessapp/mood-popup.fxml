@@ -14,7 +14,7 @@
 <?import javafx.scene.control.TextArea?>
 
 <?import javafx.scene.image.ImageView?>
-<VBox alignment="TOP_CENTER" styleClass="popup" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
+<VBox fx:id="base" alignment="TOP_CENTER" styleClass="popup" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
   </padding>
@@ -42,7 +42,7 @@
     -->
     <!--// Entry Value //-->
     <Label text="Mood" wrapText="true" style="-fx-font-size: 16px; -fx-alignment: center;"/>
-    <ComboBox fx:id="MoodValue" prefWidth="Infinity" layoutX="15.0" layoutY="33.0" promptText="Select mood">
+    <ComboBox fx:id="moodValue" prefWidth="Infinity" layoutX="15.0" layoutY="33.0" promptText="Select mood">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Happy" />
@@ -60,7 +60,7 @@
       <VBox>
         <Label text="Time" wrapText="true" style="-fx-font-size: 16px;"/>
         <HBox>
-          <TextField prefWidth="30.0" fx:id="timeHours"/>
+          <TextField prefWidth="30.0" fx:id="timeHours" onKeyTyped="#onValidateHours"/>
           <TextField prefWidth="30.0" fx:id="timeMinutes"/>
         </HBox>
       </VBox>
@@ -72,6 +72,6 @@
   <!--// Buttons //-->
   <HBox alignment="BOTTOM_LEFT" spacing="8">
     <Button fx:id="createEntryBtn" text="Create Entry" onAction="#onCreateEntry" />
-    <Button fx:id="cancelEntryBtn" text="Cancel" styleClass="btn-secondary" />
+    <Button fx:id="cancelEntryBtn" text="Cancel" styleClass="btn-secondary" onAction="#onCancelEntry" />
   </HBox>
 </VBox>
