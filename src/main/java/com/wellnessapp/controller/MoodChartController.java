@@ -48,7 +48,7 @@ public class MoodChartController extends BaseController {
 
     @FXML
     protected void onHomeBtn() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
         scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
         getStage().setScene(scene);

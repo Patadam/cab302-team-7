@@ -4,56 +4,61 @@ import com.wellnessapp.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 public class MainController extends BaseController {
-    @FXML private Label welcomeText;
-    @FXML private TextArea termsAndConditions;
+    @FXML private Button TipButton;
     @FXML private CheckBox agreeCheckBox;
-    @FXML private Button Home;
+    @FXML private Label TakeText;
+    @FXML private ImageView imageView;
+    @FXML private Label contactUsLabel;
 
+    private Stage popup = null;
+
+    //--// Initialise //--//
+    @FXML
+    public void initialize(){
+        Image image = new Image(getClass().getResourceAsStream("/Images/Computer.png"));
+        imageView.setImage(image);
+    }
+
+    //--// Wellness Tips //--//
+    @FXML
+    protected void onContactusButtonClick() {
+        contactUsLabel.setText("CAB302Team7@qut.edu.au");
+    }
+    @FXML
+    protected void onTakeButtonClick() {
+        TakeText.setText("Take Test!");
+    }
     @FXML
     protected void onCancelButtonClick() {
-        Stage stage = (Stage) Home.getScene().getWindow();
+        Stage stage = (Stage) TipButton.getScene().getWindow();
         stage.close();
     }
-
     @FXML
-    public void initialize() {
-        termsAndConditions.setText("""
-                Text,
-                Turn your computer off every one hour.
-                Go to sleep if you feel tired
-                """);
+    protected void onAgreeCheckBoxClick() {
+        boolean accepted = agreeCheckBox.isSelected();
+        TipButton.setDisable(!accepted);
     }
-
-    public TextArea getTermsAndConditions() {
-        return termsAndConditions;
-    }
-
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("CAB302Team7@qut.edu.au");
-    }
-
-    @FXML
-    protected void onHomeButtonClick() throws IOException {
-        Stage stage = (Stage) Home.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Hello-view.fxml"));
+    protected void onWellnessTipsButtonClick() throws IOException {
+        Stage stage = (Stage) TipButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("wellness-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
         stage.setScene(scene);
     }
 
-    // Handle popup for mood log
-    private Stage popup = null;
+    //--// Mood Tracking //--//
     @FXML
     protected void onMoodLogPopupButton() throws IOException {
         if (popup == null || !popup.isShowing()) {

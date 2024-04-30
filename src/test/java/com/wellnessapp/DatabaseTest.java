@@ -1,3 +1,5 @@
+package com.wellnessapp;
+
 import com.wellnessapp.model.*;
 
 import org.junit.jupiter.api.*;

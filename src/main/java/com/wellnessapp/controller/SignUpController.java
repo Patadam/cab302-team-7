@@ -40,8 +40,9 @@ public class SignUpController {
     @FXML
     private void goToLoginPage(ActionEvent event) throws IOException {
         Stage stage = (Stage) loginLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
         stage.setScene(scene);
     }
 }

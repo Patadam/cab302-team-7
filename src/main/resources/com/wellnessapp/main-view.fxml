@@ -33,7 +33,7 @@
         <Button text="Me" onAction="#onCancelButtonClick"/>
     </HBox>
 
-    <Label fx:id="contactUsLabel" visible="false"/>
+    <Label fx:id="contactUsLabel"/>
     <HBox alignment="CENTER">
         <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
         <Button fx:id="moodLogPopupButton" text="Add new Mood entry" onAction="#onMoodLogPopupButton" />
