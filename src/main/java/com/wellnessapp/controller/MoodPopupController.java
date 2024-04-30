@@ -53,8 +53,10 @@ public class MoodPopupController extends BaseController {
         final boolean isInputValid = validateInputs();
         if (isInputValid) {
             final MoodType mood = MoodType.valueOf(moodValue.getValue().toString().toUpperCase());
-            final String hours = timeHours.getText();
-            final String minutes = timeMinutes.getText();
+            String hours = timeHours.getText();
+            String minutes = timeMinutes.getText();
+            if (hours.length() == 1) { hours = "0"+hours; }
+            if (minutes.length() == 1) { minutes = "0"+minutes; }
             final LocalDate date = datePicker.getValue();
             final LocalDateTime dateTime = LocalDateTime.parse(date + " " + hours + ":" + minutes, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             final String comment = commentField.getText();
