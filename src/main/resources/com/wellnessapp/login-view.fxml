@@ -13,7 +13,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane fx:id="base" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.wellnessapp.controller.LoginController">
     <!--    <ImageView>-->
     <!--        <Image url="@/path/to/image.png"/>-->
