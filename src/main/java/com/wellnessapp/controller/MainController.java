@@ -1,65 +1,62 @@
 package com.wellnessapp.controller;
 
-import com.wellnessapp.model.UserDAO;
+import com.wellnessapp.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
-    @FXML    private Label welcomeText;
-    @FXML    private Label Navigete_to_1;
-    @FXML    private Label Navigete_to_2;
-    @FXML    private Label Navigete_to_3;
-    @FXML    private Label Navigete_to_4;
-    @FXML    private ImageView imageView;
-    @FXML    private Button contactUsButton;
-    @FXML    private Label contactUsLabel;
 
-    //Load image in Home GUI
-    public void initialize(){
-        Image image = new Image(getClass().getResourceAsStream("/com/wellnessapp/Computer.png"));
-        imageView.setImage(image);  //Loading an image with ImageView
+    @FXML
+    private Label welcomeText;
 
-        initialiseDatabase();
+    @FXML
+    private TextArea termsAndConditions;
+
+    @FXML
+    private CheckBox agreeCheckBox;
+
+    @FXML
+    private Button Home;
+
+
+    @FXML
+    protected void onCancelButtonClick() {
+        Stage stage = (Stage) Home.getScene().getWindow();
+        stage.close();
     }
 
-    private void initialiseDatabase() {
-        UserDAO userDAO = new UserDAO();
-        userDAO.close();
+
+
+    @FXML
+    public void initialize() {
+        termsAndConditions.setText("""
+                Text,
+                Turn your computer off every one hour.
+                Go to sleep if you feel tired
+                """);
     }
 
-    //Hello! button Click Setup
+    public TextArea getTermsAndConditions() {
+        return termsAndConditions;
+    }
+
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-    //ContactUs! button Click Setup
-    @FXML       //Bottom of the Home GUI button operation
-    protected void onContactusButtonClick() {
-        contactUsLabel.setText("Team7.qut.edu.au");
-        contactUsButton.setVisible(false);  //after click the button disappear
-        contactUsLabel.setVisible(true);    //replace the button with setText message
-    }
-
-    //Navigation Button Setup
-    @FXML
-    protected void onHelloButtonClick1() {
-        Navigete_to_1.setText("Take me");
+        welcomeText.setText("CAB302Team7@qut.edu.au");
     }
     @FXML
-    protected void onHelloButtonClick2() {
-        Navigete_to_2.setText("Take me");
+    protected void onHomeButtonClick() throws IOException {
+        Stage stage = (Stage) Home.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        stage.setScene(scene);
     }
-    @FXML
-    protected void onHelloButtonClick3() {
-        Navigete_to_3.setText("Take me");
-    }
-    @FXML
-    protected void onHelloButtonClick4() {
-        Navigete_to_4.setText("Take me");
-    }
-
 }

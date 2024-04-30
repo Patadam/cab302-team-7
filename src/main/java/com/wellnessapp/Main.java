@@ -7,10 +7,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    // patrick-code stuff
     // Constants defining the window title and size
     public static final String TITLE = "Home";
     public static final int WIDTH = 900;
-    public static final int HEIGHT = 550;
+    public static final int HEIGHT = 700;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
@@ -19,6 +20,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void main(String[] args) {
         launch();
