@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="base" xmlns:fx="http://javafx.com/fxml" styleClass="chart-wrapper" fx:controller="com.wellnessapp.controller.MoodChartController" >
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <HBox alignment="TOP_RIGHT">
+        <Button text="Go Home" alignment="TOP_RIGHT" onAction="#onHomeBtn" />
+    </HBox>
+    <AreaChart fx:id="chart" title="Mood History" VBox.vgrow="ALWAYS" legendVisible="false">
+        <xAxis>
+            <CategoryAxis side="BOTTOM" label="Date" />
+        </xAxis>
+        <yAxis>
+            <CategoryAxis side="LEFT" label="Mood"/>
+        </yAxis>
+    </AreaChart>
+</VBox>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.wellnessapp.controller.SignUpController">
+<!--    <ImageView>-->
+<!--        <Image url="@/path/to/image.png"/>-->
+<!--    </ImageView>-->
+<VBox alignment="CENTER" spacing="10" prefHeight="100" prefWidth="100">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+
+        <!-- a username can be added it will be a textfield-->
+        <Label text="Sign Up" style="-fx-font-size: 20px; -fx-font-weight: bold;" alignment="CENTER" />
+
+        <TextField fx:id="emailField" promptText="Email Address" alignment="CENTER" maxWidth="200"/>
+
+        <PasswordField fx:id="passwordField" promptText="Password" alignment="CENTER"  maxWidth="200"/>
+
+        <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" alignment="CENTER"  maxWidth="200"/>
+
+        <Button text="Sign Up" onAction="#handleSignUp" alignment="CENTER" />
+
+            <HBox alignment="CENTER">
+                <Text>Already have an account? </Text>
+                <Hyperlink fx:id="loginLink" text="Login" onAction="#goToLoginPage"/>
+            </HBox>
+
+
+</VBox>
+</StackPane>

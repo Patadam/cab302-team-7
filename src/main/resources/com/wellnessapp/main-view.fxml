@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox fx:id="base" alignment="TOP_LEFT" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.wellnessapp.controller.MainController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+  </padding>
+
+  <Label text="Welcome to the Wellness Application"
+         wrapText="true"/>
+
+ <HBox alignment="CENTER" spacing="10.0">
+  <ImageView fx:id="imageView" fitWidth="400" fitHeight="400"/>
+ </HBox>
+
+  <CheckBox fx:id="agreeCheckBox"
+            text="Please tick the box to see the wellness Tips."
+            onAction="#onAgreeCheckBoxClick"/>
+
+    <HBox alignment="BOTTOM_CENTER" spacing="10.0">
+        <Button text="Cancel" onAction="#onCancelButtonClick"/>
+        <Button fx:id="TipButton" text="Wellness Tips" disable="true" onAction="#onWellnessTipsButtonClick"/>
+          <Label fx:id="TakeText"/>
+          <Button text="Take!" onAction="#onTakeButtonClick"/>
+        <Button text="Me" onAction="#onCancelButtonClick"/>
+    </HBox>
+
+    <Label fx:id="contactUsLabel"/>
+    <HBox alignment="CENTER">
+        <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
+        <Button fx:id="moodLogPopupButton" text="Add new Mood entry" onAction="#onMoodLogPopupButton" />
+        <Button fx:id="moodChartButton" text="See your mood chart" onAction="#onMoodChartButton" />
+    </HBox>
+</VBox>

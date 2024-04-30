@@ -24,18 +24,24 @@ public class LoginController {
     private Hyperlink signupLink;
 
     @FXML
-    private void handleLogin(ActionEvent event) {
+    private void handleLogin(ActionEvent event) throws IOException {
 
         String email = emailField.getText();
         String password = passwordField.getText();
+
+        Stage stage = (Stage) signupLink.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+        stage.setScene(scene);
     }
 
     @FXML
     private void goToSignUpPage(ActionEvent event) throws IOException {
         Stage stage = (Stage) signupLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Signup-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("signup-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
         stage.setScene(scene);
-
     }
 }

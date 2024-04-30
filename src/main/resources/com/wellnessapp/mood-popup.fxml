@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+
+<?import javafx.scene.image.ImageView?>
+
+<VBox fx:id="base" alignment="TOP_CENTER" styleClass="popup" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+  </padding>
+  <HBox spacing="20">
+    <ImageView fx:id="moodIcon" fitWidth="35" fitHeight="35" preserveRatio="true" />
+    <Label text="Mood entry" wrapText="true" style="-fx-font-size: 20px;"/>
+  </HBox>
+
+  <VBox spacing="4">
+    <padding>
+      <Insets bottom="6" top="6" />
+    </padding>
+    <!--// Entry Value //-->
+    <Label text="Mood" wrapText="true" style="-fx-font-size: 16px; -fx-alignment: center;"/>
+    <ComboBox fx:id="moodValue" prefWidth="Infinity" layoutX="15.0" layoutY="33.0" promptText="Select mood">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Happy" />
+          <String fx:value="Neutral" />
+          <String fx:value="Sad" />
+        </FXCollections>
+      </items>
+    </ComboBox>
+    <!--// Date and time //-->
+    <HBox spacing="8">
+      <VBox>
+        <Label text="Date" wrapText="true" style="-fx-font-size: 16px;"/>
+        <DatePicker fx:id="datePicker" />
+      </VBox>
+      <VBox>
+        <Label text="Time" wrapText="true" style="-fx-font-size: 16px;"/>
+        <HBox>
+          <TextField prefWidth="30.0" fx:id="timeHours"/>
+          <TextField prefWidth="30.0" fx:id="timeMinutes"/>
+        </HBox>
+      </VBox>
+    </HBox>
+    <!--// Comment //-->
+    <Label text="Comment" wrapText="true" style="-fx-font-size: 16px;"/>
+    <TextArea fx:id="commentField" styleClass="text-area"/>
+  </VBox>
+  <!--// Buttons //-->
+  <HBox>
+    <Label fx:id="errorText" styleClass="error-text" />
+  </HBox>
+  <HBox alignment="BOTTOM_LEFT" spacing="8">
+    <Button fx:id="createEntryBtn" text="Create Entry" onAction="#onCreateEntry" />
+    <Button fx:id="cancelEntryBtn" text="Cancel" styleClass="btn-secondary" onAction="#onCancelEntry" />
+  </HBox>
+</VBox>
