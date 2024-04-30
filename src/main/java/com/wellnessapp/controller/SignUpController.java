@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.wellnessapp.model.User;
+import com.wellnessapp.model.UserDAO;
+
 public class SignUpController {
 
     @FXML
@@ -26,19 +29,34 @@ public class SignUpController {
     @FXML
     private Hyperlink loginLink;
 
+    UserDAO userDAO;
+
     @FXML
-    private void handleSignUp(ActionEvent event) {
+    public void initialize(){
+        userDAO = new UserDAO();
+    }
+
+
+    @FXML
+    private void handleSignUp(ActionEvent event) throws IOException {
 
         //this method should add the account to database and return user to the homepage
         // this method must also compare the passwordField and confirmPasswordField for them to be equal
 
+
         String email = emailField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
-    }
 
+        if (password.equals(confirmPassword)) {
+            User user = new User(email, password);
+            userDAO.insert(user);
+            goToLoginPage();
+
+        }
+    }
     @FXML
-    private void goToLoginPage(ActionEvent event) throws IOException {
+    private void goToLoginPage() throws IOException {
         Stage stage = (Stage) loginLink.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);

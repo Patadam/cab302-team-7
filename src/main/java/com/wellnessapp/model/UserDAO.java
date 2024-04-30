@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.sql.*;
 
 public class UserDAO implements IUserDAO {
     private Connection connection;
@@ -102,6 +103,22 @@ public class UserDAO implements IUserDAO {
         } catch (SQLException ex) {
             System.err.println(ex);
         }
+    }
+
+    public boolean authenticateUser(User user) {
+        boolean isAuthenticated = false;
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?");
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getPassword());
+            ResultSet r = statement.executeQuery();
+            if (r.next()) {
+                isAuthenticated = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return isAuthenticated;
     }
 
 }

@@ -11,9 +11,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.wellnessapp.model.User;
+import com.wellnessapp.model.UserDAO;
 
 public class LoginController {
 
+    UserDAO userDAO;
+    public void initialize(){
+        userDAO = new UserDAO();
+    }
     @FXML
     private TextField emailField;
 
@@ -29,11 +37,17 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        Stage stage = (Stage) signupLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
-        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
-        stage.setScene(scene);
+        User user = new User(email,password);
+        boolean isAuthenticated = userDAO.authenticateUser(user);
+
+        if (isAuthenticated) {
+            Stage stage = (Stage) signupLink.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+            scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+            stage.setScene(scene);
+
+        }
     }
 
     @FXML
