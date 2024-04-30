@@ -19,7 +19,7 @@ public class UserDAO implements IUserDAO {
             Statement createTable = connection.createStatement();
             createTable.execute(
                     "CREATE TABLE IF NOT EXISTS users ("
-                            + "username VARCHAR NOT NULL, "
+                            + "email VARCHAR NOT NULL, "
                             + "password VARCHAR NOT NULL "
                             + ")"
             );
@@ -27,24 +27,73 @@ public class UserDAO implements IUserDAO {
             System.err.println(ex);
         }
     }
+    private void insertSampleData() {
+        try {
+            // Clear before inserting
+            Statement clearStatement = connection.createStatement();
+            String clearQuery = "DELETE FROM users";
+            clearStatement.execute(clearQuery);
+            Statement insertStatement = connection.createStatement();
+            String insertQuery = "INSERT INTO users (email, password) VALUES "
+                    + "('hello@example.com', 'password123'),"
+                    + "('janedoe@example.com', 'abc123'),"
+                    + "('johndoe@example.com','password')";
+            insertStatement.execute(insertQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void insert(User user) {
-        // Todo Later: Create a PreparedStatement to run the INSERT query
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users " +
+                    "(email, password) VALUES (?, ?)");
+            statement.setString(1, user.getEmail());
+            statement.setString(2, user.getPassword());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    @Override
-    public void update(User user) {
-        // Todo Later: Create a PreparedStatement to run the UPDATE query
-    }
+//    @Override
+//    public void update(User user) {
+//        try {
+//            PreparedStatement statement = connection.prepareStatement("UPDATE users SET email = ?," +
+//                    " password = ?");
+//            statement.setString(1, user.getEmail());
+//            statement.setString(2, user.getPassword());
+//            statement.executeUpdate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     @Override
     public void delete(User user) {
-        // Todo Later: Create a PreparedStatement to run the DELETE query
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE email = ?");
+            statement.setString(1, user.getEmail());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public List<User> getAll() {
-        List<User> accounts = new ArrayList<>();
-        // Todo Later: Create a Statement to run the SELECT * query
-        // and populate the accounts list above
-        return accounts;
+        List<User> users = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM users";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                User user = new User(email, password);
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public void close() {
