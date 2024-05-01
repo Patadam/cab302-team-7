@@ -5,12 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IMoodDAO {
-
      void Create(MoodEntry entry) throws SQLException;
-
-     MoodEntry getEntryById(int id);
-
      void Delete(MoodEntry entry);
+     MoodEntry getEntryById(int id);
      List<MoodEntry> getAllEntries();
 }
 
