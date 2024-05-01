@@ -33,28 +33,33 @@ public class MoodEntry implements IMoodEntry {
         this(mood, LocalDateTime.now(), "");
     }
 
+    @Override
     public int getId() {
         return this.id;
     }
+    @Override
     public void setId(int id) {
         this.id = id;
     }
-
+    @Override
     public LocalDateTime getTimestamp() {
         return this.timestamp;
     }
+    @Override
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
-
+    @Override
     public MoodType getMood(){
         return this.value;
     }
+    @Override
     public void setMood(MoodType value) {
         this.value = value;
     }
-
+    @Override
     public String getComment() { return this.comment; }
+    @Override
     public void setComment(String comment) { this.comment = comment; }
 
 }
