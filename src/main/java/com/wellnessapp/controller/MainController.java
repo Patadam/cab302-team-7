@@ -89,4 +89,14 @@ public class MainController extends BaseController {
         getStage().show();
         getStage().centerOnScreen();
     }
+    @FXML
+    protected void onReminderButtonClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Reminder-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+        getStage().setTitle("Mood Chart");
+        getStage().setScene(scene);
+        getStage().show();
+        getStage().centerOnScreen();
+    }
 }

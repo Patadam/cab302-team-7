@@ -31,6 +31,7 @@
           <Label fx:id="TakeText"/>
           <Button text="Take!" onAction="#onTakeButtonClick"/>
         <Button text="Me" onAction="#onCancelButtonClick"/>
+        <Button text="Reminder" onAction="#onReminderButtonClick"/>
     </HBox>
 
     <Label fx:id="contactUsLabel"/>
