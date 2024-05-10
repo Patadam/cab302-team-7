@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.CheckBox?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.wellnessapp.controller.SettingsPopupController"
+      prefWidth="400" prefHeight="300">
+
+    <children>
+        <HBox>
+            <CheckBox text="Receive" fx:id="option1Checkbox"/>
+            <CheckBox text="No Receive" fx:id="option2Checkbox"/>
+        </HBox>
+        <HBox>
+            <CheckBox text="YES" fx:id="option3Checkbox"/>
+        </HBox>
+        <HBox>
+            <!-- Add more checkboxes or settings as needed -->
+        </HBox>
+    </children>
+</VBox>

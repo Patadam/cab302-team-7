@@ -10,8 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class MainController extends BaseController {
@@ -20,8 +20,10 @@ public class MainController extends BaseController {
     @FXML private Label TakeText;
     @FXML private ImageView imageView;
     @FXML private Label contactUsLabel;
+    @FXML private Button contactUsButton;
 
     private Stage popup = null;
+    private Stage settingsPopup = null;
 
     //--// Initialise //--//
     @FXML
@@ -34,6 +36,7 @@ public class MainController extends BaseController {
     @FXML
     protected void onContactusButtonClick() {
         contactUsLabel.setText("CAB302Team7@qut.edu.au");
+        contactUsButton.setVisible(false);
     }
     @FXML
     protected void onTakeButtonClick() {
@@ -98,5 +101,27 @@ public class MainController extends BaseController {
         getStage().setScene(scene);
         getStage().show();
         getStage().centerOnScreen();
+    }
+    @FXML
+    protected void onSettingsButtonClick() throws IOException {
+        if (settingsPopup == null || !settingsPopup.isShowing()) {
+            // Load the FXML file for the settings popup
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings-popup.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Create a new stage for the popup
+            settingsPopup = new Stage();
+            settingsPopup.setScene(scene);
+            settingsPopup.setTitle("Settings");
+
+            // Set the modality of the popup to APPLICATION_MODAL
+            settingsPopup.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the popup
+            settingsPopup.show();
+        } else {
+            // If the popup is already showing, bring it to the front
+            settingsPopup.toFront();
+        }
     }
 }
