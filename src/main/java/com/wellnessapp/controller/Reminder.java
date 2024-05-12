@@ -20,14 +20,13 @@ import java.util.List;
 
 public class Reminder {
 
-    @FXML
-    private DatePicker datePicker;
+    @FXML private DatePicker datePicker;
     @FXML private TextField Title;
     @FXML private Spinner hourSpinner;
     @FXML private Spinner minuteSpinner;
     @FXML private TextField Notes;
     @FXML private TextField Source;
-    @FXML private ListView ReminderListView;
+    @FXML private ListView<ReminderEntry> ReminderListView;
 
 
     ReminderDAO reminderDAO = new ReminderDAO();
@@ -35,6 +34,8 @@ public class Reminder {
     public void initialize() {
         // Optional: You can set an initial date for the DatePicker
         datePicker.setValue(LocalDate.now());
+
+        ReminderListView.setCellFactory(this::renderCell);
         syncReminders();
     }
 
@@ -57,22 +58,31 @@ public class Reminder {
         String url = Source.getText();
         ReminderEntry entry = new ReminderEntry(title, date, time, comments, url);
         reminderDAO.Create(entry);
+
+        syncReminders();
+        ReminderListView.getSelectionModel().select(entry);
+    }
+
+    private ListCell<ReminderEntry> renderCell(ListView<ReminderEntry> listView) {
+        return new ListCell<>(){
+            @Override
+            protected void updateItem(ReminderEntry entry, boolean empty) {
+                super.updateItem(entry, empty);
+                if (empty || entry == null || entry.getTime() == null) {
+                    setText(null);
+                } else {
+                    setText(entry.getTitle());
+                }
+            };
+        };
     }
 
     private void syncReminders() {
         ReminderListView.getItems().clear();
         List<ReminderEntry> reminders = reminderDAO.getAllEntries();
-        boolean hasReminder = !reminders.isEmpty();
-        ReminderEntry currentReminder = (ReminderEntry) ReminderListView.getSelectionModel().getSelectedItem();
-        if (hasReminder) {
+        final boolean hasReminders = !reminders.isEmpty();
+        if (hasReminders) {
             ReminderListView.getItems().addAll(reminders);
-            // If the current contact is still in the list, re-select it
-            // Otherwise, select the first contact in the list
-            ReminderEntry nextReminder = reminders.contains(currentReminder) ? currentReminder : reminders.get(0);
-            ReminderListView.getSelectionModel().select(nextReminder);
-            //selectReminder(nextReminder);
         }
-        // Show / hide based on whether there are contacts
-        //contactContainer.setVisible(hasContact);
     }
 }

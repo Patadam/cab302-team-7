@@ -24,8 +24,8 @@ public class ReminderDAO implements IReminderDAO{
                             + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                             + "title VARCHAR NOT NULL,"
                             + "date DATE NOT NULL,"
-                            + "time VARCHAR NOT NULL"
-                            + "comments VARCHAR"
+                            + "time VARCHAR NOT NULL,"
+                            + "comments VARCHAR,"
                             + "source VARCHAR"
                             + ")"
             );
