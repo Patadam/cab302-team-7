@@ -3,32 +3,32 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.HBox?>
+
 <VBox fx:id="base" alignment="TOP_LEFT" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.wellnessapp.controller.WellnessTipController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
   </padding>
 
-  <Label text="Welcome to the Address Book Application.
-  You must agree to the following terms and conditions before you can use the application."
+  <Label text="Welcome to your daily wellness tip! Find a moment of calm and inspiration here. Let's nurture your well-being together, one tip at a time."
          wrapText="true"/>
-    <TextArea fx:id="termsAndConditions"
+    <TextArea fx:id="wellnesstips"
               wrapText="true"
               editable="false"
     />
 
-
   <HBox alignment="BOTTOM_RIGHT" spacing="10.0">
-    <Button text="Cancel" onAction="#onCancelButtonClick"/>
+    <Button text="End" onAction="#onCancelButtonClick"/>
     <Button fx:id="Home" text="Home"  onAction="#onHomeButtonClick"/>
   </HBox>
+
   <Label fx:id="welcomeText"/>
-  <HBox alignment="CENTER">
-    <Button text="Contact Us!" onAction="#onContactusButtonClick"/>
+
+  <HBox alignment="BOTTOM_CENTER">
+    <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
+    <Label fx:id="contactUsLabel" alignment="BOTTOM_CENTER"/>
   </HBox>
 </VBox>

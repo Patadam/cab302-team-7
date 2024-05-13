@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.CheckBox?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.wellnessapp.controller.SettingsPopupController"
+      prefWidth="400" prefHeight="300">
+
+    <children>
+        <HBox>
+            <Label text="Do you read daily wellness tips?"/>
+            <CheckBox text="Yes" fx:id="option1Checkbox"/>
+            <CheckBox text="No" fx:id="option2Checkbox"/>
+        </HBox>
+        <HBox>
+            <Label text="Setting 1:"/>
+            <CheckBox text="othersettings" fx:id="option3Checkbox"/>
+        </HBox>
+        <HBox>
+            <Label text="Setting 2:"/>
+            <!-- Add more checkboxes or settings as needed -->
+        </HBox>
+    </children>
+
+    <fx:define>
+        <ToggleGroup fx:id="toggleGroup"/>
+    </fx:define>
+</VBox>
