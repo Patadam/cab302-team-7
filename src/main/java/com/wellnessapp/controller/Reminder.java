@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.sql.Date;
@@ -62,18 +63,60 @@ public class Reminder {
         syncReminders();
         ReminderListView.getSelectionModel().select(entry);
     }
+    @FXML
+    private void onDelete() {
+        // Get the selected contact from the list view
+        ReminderEntry selectedReminder = ReminderListView.getSelectionModel().getSelectedItem();
+        if (selectedReminder != null){
+            reminderDAO.deleteReminder(selectedReminder);
+            syncReminders();
+        }
+    }
+    private void selectReminder(ReminderEntry reminder) {
+        ReminderListView.getSelectionModel().select(reminder);
+        Title.setText(reminder.getTitle());
+        datePicker.setValue(reminder.getDate().toLocalDate());
+        String[] times = reminder.getTime().split(":");
+        hourSpinner.increment(Integer.parseInt(times[0]));
+        minuteSpinner.increment(Integer.parseInt(times[1]));
+        Notes.setText(reminder.getComments());
+        Source.setText(reminder.getUrl());
+    }
 
     private ListCell<ReminderEntry> renderCell(ListView<ReminderEntry> listView) {
         return new ListCell<>(){
+            private void onReminderSelected(MouseEvent mouseEvent) {
+                ListCell<ReminderEntry> clickedCell = (ListCell<ReminderEntry>) mouseEvent.getSource();
+                // Get the selected contact from the list view
+                ReminderEntry selectedReminder = clickedCell.getItem();
+                if (selectedReminder != null) selectReminder(selectedReminder);
+            }
+            /**
+             * Updates the item in the cell by setting the text to the contact's full name.
+             * @param reminder The contact to update the cell with.
+             * @param empty Whether the cell is empty.
+             */
             @Override
-            protected void updateItem(ReminderEntry entry, boolean empty) {
-                super.updateItem(entry, empty);
-                if (empty || entry == null || entry.getTime() == null) {
+            protected void updateItem(ReminderEntry reminder, boolean empty) {
+                super.updateItem(reminder, empty);
+                // If the cell is empty, set the text to null, otherwise set it to the contact's full name
+                if (empty || reminder == null || reminder.getTitle() == null) {
                     setText(null);
+                    super.setOnMouseClicked(this::onReminderSelected);
                 } else {
-                    setText(entry.getTitle());
+                    setText(reminder.getTitle());
                 }
-            };
+            }
+//            @Override
+//            protected void updateItem(ReminderEntry entry, boolean empty) {
+//                super.updateItem(entry, empty);
+//                if (empty || entry == null || entry.getTime() == null) {
+//                    selectReminder(entry);
+//                } else {
+//                    setText(entry.getTitle());
+//                }
+//            };
+
         };
     }
 
@@ -81,8 +124,13 @@ public class Reminder {
         ReminderListView.getItems().clear();
         List<ReminderEntry> reminders = reminderDAO.getAllEntries();
         final boolean hasReminders = !reminders.isEmpty();
+        ReminderEntry currentReminder = ReminderListView.getSelectionModel().getSelectedItem();
         if (hasReminders) {
             ReminderListView.getItems().addAll(reminders);
+
+            ReminderEntry nextReminder = reminders.contains(currentReminder) ? currentReminder : reminders.get(0);
+            ReminderListView.getSelectionModel().select(nextReminder);
+            selectReminder(nextReminder);
         }
     }
 }

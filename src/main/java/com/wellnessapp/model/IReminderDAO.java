@@ -7,5 +7,7 @@ public interface IReminderDAO {
 
     void Create(ReminderEntry entry) throws SQLException;
 
+    void deleteReminder(ReminderEntry entry);
+
     List<ReminderEntry> getAllEntries();
 }

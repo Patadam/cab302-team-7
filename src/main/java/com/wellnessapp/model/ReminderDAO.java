@@ -1,11 +1,7 @@
 package com.wellnessapp.model;
 
-import com.wellnessapp.enums.MoodType;
-
 import java.sql.Connection;
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +48,19 @@ public class ReminderDAO implements IReminderDAO{
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public void deleteReminder(ReminderEntry entry) {
+        try {
+            String query = "DELETE FROM reminders WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, entry.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public List<ReminderEntry> getAllEntries() {
