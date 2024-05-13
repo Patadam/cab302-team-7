@@ -118,8 +118,8 @@ public class Reminder {
         Title.setText(reminder.getTitle());
         datePicker.setValue(reminder.getDate().toLocalDate());
         String[] times = reminder.getTime().split(":");
-        hourSpinner.increment(Integer.parseInt(times[0]));
-        minuteSpinner.increment(Integer.parseInt(times[1]));
+        hourSpinner.getValueFactory().setValue(Integer.parseInt(times[0]));
+        minuteSpinner.getValueFactory().setValue(Integer.parseInt(times[1]));
         Notes.setText(reminder.getComments());
         Source.setText(reminder.getUrl());
     }
