@@ -70,7 +70,7 @@
             </GridPane>
             <HBox spacing="10.0" alignment="CENTER">
                 <Button text="Confirm" onAction="#onConfirmButtonClick"/>
-                <Button text="Cancel" />
+                <Button fx:id="cancelButton" text="Cancel" onAction="#onCancelButtonClick"/>
                 <Button text="Delete" onAction="#onDelete"/>
             </HBox>
         </VBox>

@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ public class Reminder {
     @FXML private TextField Notes;
     @FXML private TextField Source;
     @FXML private ListView<ReminderEntry> ReminderListView;
+    @FXML private Button cancelButton;
 
 
     ReminderDAO reminderDAO = new ReminderDAO();
@@ -71,6 +73,14 @@ public class Reminder {
             reminderDAO.deleteReminder(selectedReminder);
             syncReminders();
         }
+    }
+
+    @FXML
+    protected void onCancelButtonClick() throws IOException {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        stage.setScene(scene);
     }
     private void selectReminder(ReminderEntry reminder) {
         ReminderListView.getSelectionModel().select(reminder);
