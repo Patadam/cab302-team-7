@@ -52,18 +52,30 @@ public class Reminder {
 
     @FXML
     protected void onConfirmButtonClick() throws SQLException {
-        String title = Title.getText();
-        Date date = Date.valueOf(datePicker.getValue());
-        String hours = hourSpinner.getValue().toString();
-        String minutes = minuteSpinner.getValue().toString();
-        String time = hours + ":" + minutes;
-        String comments = Notes.getText();
-        String url = Source.getText();
-        ReminderEntry entry = new ReminderEntry(title, date, time, comments, url);
-        reminderDAO.Create(entry);
 
-        syncReminders();
-        ReminderListView.getSelectionModel().select(entry);
+        ReminderEntry selectedReminder = ReminderListView.getSelectionModel().getSelectedItem();
+        if (selectedReminder != null){
+            selectedReminder.setTitle(Title.getText());
+            selectedReminder.setDate(Date.valueOf(datePicker.getValue()));
+            selectedReminder.setTime(hourSpinner.getValue().toString() + ":" + minuteSpinner.getValue().toString());
+            selectedReminder.setComments(Notes.getText());
+            selectedReminder.setUrl(Source.getText());
+            reminderDAO.updateReminder(selectedReminder);
+            syncReminders();
+        }
+        selectReminder(selectedReminder);
+//        String title = Title.getText();
+//        Date date = Date.valueOf(datePicker.getValue());
+//        String hours = hourSpinner.getValue().toString();
+//        String minutes = minuteSpinner.getValue().toString();
+//        String time = hours + ":" + minutes;
+//        String comments = Notes.getText();
+//        String url = Source.getText();
+//        ReminderEntry entry = new ReminderEntry(title, date, time, comments, url);
+//        reminderDAO.Create(entry);
+//
+//        syncReminders();
+//        ReminderListView.getSelectionModel().select(entry);
     }
     @FXML
     private void onDelete() {
@@ -72,6 +84,25 @@ public class Reminder {
         if (selectedReminder != null){
             reminderDAO.deleteReminder(selectedReminder);
             syncReminders();
+        }
+    }
+
+    @FXML
+    private void onAdd() {
+        // Default values for a new contact
+        final String DEFAULT_TITLE = "New";
+        final Date DEFAULT_DATE = Date.valueOf(LocalDate.now());
+        final String DEFAULT_TIME = "0:00";
+        final String DEFAULT_NOTES = "";
+        final String DEFAULT_URL = "";
+        ReminderEntry newReminder = new ReminderEntry(DEFAULT_TITLE, DEFAULT_DATE, DEFAULT_TIME, DEFAULT_NOTES, DEFAULT_URL);
+        try {
+            reminderDAO.Create(newReminder);
+            syncReminders();
+            selectReminder(newReminder);
+            Title.requestFocus();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -117,16 +148,6 @@ public class Reminder {
                     setText(reminder.getTitle());
                 }
             }
-//            @Override
-//            protected void updateItem(ReminderEntry entry, boolean empty) {
-//                super.updateItem(entry, empty);
-//                if (empty || entry == null || entry.getTime() == null) {
-//                    selectReminder(entry);
-//                } else {
-//                    setText(entry.getTitle());
-//                }
-//            };
-
         };
     }
 

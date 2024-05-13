@@ -61,7 +61,22 @@ public class ReminderDAO implements IReminderDAO{
         }
     }
 
-
+    @Override
+    public void updateReminder(ReminderEntry reminder) {
+        String query = "UPDATE reminders SET title = ?, date = ?, time = ?, comments = ?, source = ? WHERE id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, reminder.getTitle());
+            statement.setDate(2, reminder.getDate());
+            statement.setString(3, reminder.getTime());
+            statement.setString(4, reminder.getComments());
+            statement.setString(5, reminder.getUrl());
+            statement.setInt(6, reminder.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public List<ReminderEntry> getAllEntries() {
         List<ReminderEntry> entries = new ArrayList<>();

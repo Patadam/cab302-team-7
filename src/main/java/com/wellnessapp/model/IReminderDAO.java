@@ -9,5 +9,7 @@ public interface IReminderDAO {
 
     void deleteReminder(ReminderEntry entry);
 
+    void updateReminder(ReminderEntry reminder);
+
     List<ReminderEntry> getAllEntries();
 }

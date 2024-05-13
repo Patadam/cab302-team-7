@@ -28,7 +28,7 @@
     <HBox VBox.vgrow="ALWAYS" spacing="20.0">
         <VBox spacing="10.0">
             <ListView fx:id="ReminderListView"  />
-            <Button text="New" maxWidth="Infinity"/>
+            <Button text="New" onAction="#onAdd" maxWidth="Infinity"/>
         </VBox>
         <VBox spacing="10.0" prefWidth="400" >
             <Label text="New Reminder." />
