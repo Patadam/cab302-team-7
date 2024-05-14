@@ -7,9 +7,7 @@ import com.wellnessapp.workers.HydrationWorker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -23,11 +21,15 @@ public class MainController extends BaseController {
     @FXML private Label TakeText;
     @FXML private ImageView imageView;
     @FXML private Label contactUsLabel;
-    @FXML private Button contactUsButton;
     @FXML private Button hydrationButton;
+    @FXML private Button contactUsButton;
 
     private Stage popup = null;
     private Stage settingsPopup = null;
+
+    public MainController() {
+        new HydrationWorker().startBackgroundExecutor();
+    }
 
     //--// Initialise //--//
     @FXML
@@ -96,6 +98,25 @@ public class MainController extends BaseController {
         getStage().show();
         getStage().centerOnScreen();
     }
+
+    // Hydration
+    @FXML
+    protected void onHydrationButton() throws IOException {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("New hydration entry");
+        ButtonType confirm = new ButtonType("Confirm", ButtonBar.ButtonData.YES);
+        ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.setContentText("Are you sure you want to record a new water entry?");
+        dialog.getDialogPane().getButtonTypes().addAll(confirm, close);
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == confirm) {
+                HydrationManager manager = new HydrationManager();
+                manager.add(new HydrationEntry());
+            }
+        });
+    }
+
+    // Reminders
     @FXML
     protected void onReminderButtonClick() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Reminder-view.fxml"));
