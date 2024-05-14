@@ -1,8 +1,8 @@
 package com.wellnessapp;
 
 import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodDAO;
-import com.wellnessapp.model.MoodEntry;
+import com.wellnessapp.model.mood.MoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 

@@ -2,9 +2,9 @@ package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
 import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodDAO;
-import com.wellnessapp.model.MoodEntry;
-import com.wellnessapp.model.MoodManager;
+import com.wellnessapp.model.mood.MoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
+import com.wellnessapp.model.mood.MoodManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -31,6 +31,7 @@ public class MoodPopupController extends BaseController {
     /**
      * Starter method that runs on page mount
      */
+    @FXML
     public void initialize(){
         moodManager = new MoodManager(new MoodDAO());
 
@@ -44,7 +45,7 @@ public class MoodPopupController extends BaseController {
     }
 
     private void loadImages() {
-        Image image = new Image(Main.class.getResourceAsStream("/com/wellnessapp/mood-icon.png"));
+        Image image = new Image(Main.class.getResourceAsStream("/Images/mood-icon.png"));
         moodIcon.setImage(image);
     }
 
