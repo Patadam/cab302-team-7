@@ -2,9 +2,9 @@ package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
 import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodDAO;
-import com.wellnessapp.model.MoodEntry;
-import com.wellnessapp.model.MoodManager;
+import com.wellnessapp.model.mood.MoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
+import com.wellnessapp.model.mood.MoodManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
