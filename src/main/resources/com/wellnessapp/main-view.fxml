@@ -39,5 +39,6 @@
         <Button fx:id="contactUsButton" text="Contact Us!" onAction="#onContactusButtonClick"/>
         <Button fx:id="moodLogPopupButton" text="Add new Mood entry" onAction="#onMoodLogPopupButton" />
         <Button fx:id="moodChartButton" text="See your mood chart" onAction="#onMoodChartButton" />
+        <Button fx:id="hydrationButton" text="Add new water intake" onAction="#onHydrationButton" />
     </HBox>
 </VBox>
