@@ -1,7 +1,6 @@
-package com.wellnessapp.model;
+package com.wellnessapp.model.mood;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 import com.wellnessapp.enums.MoodType;
 

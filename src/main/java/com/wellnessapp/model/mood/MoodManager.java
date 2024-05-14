@@ -1,4 +1,4 @@
-package com.wellnessapp.model;
+package com.wellnessapp.model.mood;
 
 import java.sql.SQLException;
 import java.util.List;

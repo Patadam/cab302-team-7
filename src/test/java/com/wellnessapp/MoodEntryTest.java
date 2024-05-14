@@ -1,7 +1,7 @@
 package com.wellnessapp;
 
 import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodEntry;
+import com.wellnessapp.model.mood.MoodEntry;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

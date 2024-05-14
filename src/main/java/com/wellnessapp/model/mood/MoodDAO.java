@@ -1,6 +1,10 @@
-package com.wellnessapp.model;
+package com.wellnessapp.model.mood;
 
 import com.wellnessapp.enums.MoodType;
+import com.wellnessapp.model.DatabaseConnection;
+import com.wellnessapp.model.mood.IMoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
