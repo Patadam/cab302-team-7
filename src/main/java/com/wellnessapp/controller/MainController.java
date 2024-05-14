@@ -1,6 +1,9 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.model.hydration.HydrationEntry;
+import com.wellnessapp.model.hydration.HydrationManager;
+import com.wellnessapp.workers.HydrationWorker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +24,7 @@ public class MainController extends BaseController {
     @FXML private ImageView imageView;
     @FXML private Label contactUsLabel;
     @FXML private Button contactUsButton;
+    @FXML private Button hydrationButton;
 
     private Stage popup = null;
     private Stage settingsPopup = null;
