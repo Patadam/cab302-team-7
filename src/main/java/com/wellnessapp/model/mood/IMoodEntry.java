@@ -1,4 +1,4 @@
-package com.wellnessapp.model;
+package com.wellnessapp.model.mood;
 
 
 import com.wellnessapp.enums.MoodType;
