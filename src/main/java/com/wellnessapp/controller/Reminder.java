@@ -1,8 +1,6 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
-import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodEntry;
 import com.wellnessapp.model.ReminderDAO;
 import com.wellnessapp.model.ReminderEntry;
 import javafx.fxml.FXML;
@@ -16,8 +14,6 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Reminder {
