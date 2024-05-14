@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.NoSuchElementException;
+
 public class BaseController implements IBaseController {
     @FXML private Pane base;
     private Stage stage;
@@ -32,7 +34,31 @@ public class BaseController implements IBaseController {
             }
             return this.stage;
         } catch (Exception ex) {
-            throw new RuntimeException("You must set fx:id=\"base\" on all fxml referenced by " + this.getClass());
+            throw new NoSuchElementException("You must set fx:id=\"base\" on all fxml referenced by " + this.getClass());
         }
     }
+
+    /**
+     * The onMount method forces code execution to wait until it can be executed on the JavaFX thread
+     * when the page mount is completed. Automatically executes a {@link #getStage()} call before callback.
+     * @param callback A call back method for any code to be run on the JavaFX thread when ready.
+     *
+     */
+    public void onMount(Runnable callback) {
+        Platform.runLater(()->{
+            this.getStage();
+            callback.run();
+        });
+    }
+
+    /**
+     * Initialises access to the stage by running {@code getStage()} when the FXML thread is mounted and ready.
+     * The stage can be accessed through {@link #getStage()} method of the {@link BaseController}.
+     * This method is unnecessary if using the {@link #onMount(Runnable)} method.
+     * @see #getStage()
+     */
+    public void initStage() {
+        Platform.runLater(this::getStage);
+    }
+
 }
