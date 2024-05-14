@@ -1,6 +1,7 @@
 package com.wellnessapp.services;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.workers.HydrationWorker;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -21,6 +22,7 @@ public class TrayService {
     public static void handleExit() {
         systemTray.remove(trayIcon);
         Platform.exit();
+        System.exit(0);
     }
     public static void handleCloseWithSystemTray(Stage stage) {
         if (SystemTray.isSupported()) {
