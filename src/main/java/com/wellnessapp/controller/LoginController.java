@@ -1,6 +1,7 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.services.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +42,8 @@ public class LoginController {
         boolean isAuthenticated = userDAO.authenticateUser(user);
 
         if (isAuthenticated) {
+            AuthService.getInstance().setCurrentUser(user);
+            //new AuthService().setCurrentUser(user);
             Stage stage = (Stage) signupLink.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
