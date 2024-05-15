@@ -64,9 +64,9 @@ public class UserDAO implements IUserDAO {
             ReminderEntry stretchBreak = new ReminderEntry("Stretch Break", Date.valueOf(LocalDate.now()),
                     "11:00", "Reminder to stretch!",
                     "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-the-importance-of-stretching-throughout-your-workday/");
-            reminderDAO.Create(screenTime);
-            reminderDAO.Create(hydrate);
-            reminderDAO.Create(stretchBreak);
+            reminderDAO.CreateDefaultReminders(screenTime, user.getEmail());
+            reminderDAO.CreateDefaultReminders(hydrate, user.getEmail());
+            reminderDAO.CreateDefaultReminders(stretchBreak, user.getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }
