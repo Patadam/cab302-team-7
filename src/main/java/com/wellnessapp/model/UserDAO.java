@@ -1,6 +1,7 @@
 package com.wellnessapp.model;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -9,6 +10,7 @@ import java.sql.*;
 
 public class UserDAO implements IUserDAO {
     private Connection connection;
+    private ReminderDAO reminderDAO = new ReminderDAO();
 
     public UserDAO() {
         connection = DatabaseConnection.getInstance();
@@ -52,9 +54,24 @@ public class UserDAO implements IUserDAO {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
             statement.executeUpdate();
+
+            ReminderEntry screenTime = new ReminderEntry("Screentime Break", Date.valueOf(LocalDate.now()),
+                    "14:00", "Remember to take breaks every so often when looking at your screen!",
+                    "https://wfmchealth.org/family-health-care/how-to-take-more-screen-breaks-throughout-the-day/");
+            ReminderEntry hydrate = new ReminderEntry("Water Break", Date.valueOf(LocalDate.now()),
+                    "15:30", "Reminder to drink water often!",
+                    "https://www.healthdirect.gov.au/drinking-water-and-your-health");
+            ReminderEntry stretchBreak = new ReminderEntry("Stretch Break", Date.valueOf(LocalDate.now()),
+                    "11:00", "Reminder to stretch!",
+                    "https://newsnetwork.mayoclinic.org/discussion/mayo-clinic-minute-the-importance-of-stretching-throughout-your-workday/");
+            reminderDAO.Create(screenTime);
+            reminderDAO.Create(hydrate);
+            reminderDAO.Create(stretchBreak);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 //    @Override
 //    public void update(User user) {
