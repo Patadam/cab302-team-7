@@ -83,7 +83,7 @@ public class ReminderDAO implements IReminderDAO{
             LocalDate date = reminder.getDate().toLocalDate();
             LocalTime time = LocalTime.parse(reminder.getTime());
             LocalDateTime dateTime = LocalDateTime.of(date, time);
-            System.out.println(dateTime.toString());
+            // System.out.println(dateTime.toString());
             NoticeBO newNotice = NoticeBO.builder().title(reminder.getTitle()).text(reminder.getComments()).build();
             noticeManager.scheduleNotice(dateTime, newNotice);
         } catch (Exception e) {
