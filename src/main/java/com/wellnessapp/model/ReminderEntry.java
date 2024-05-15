@@ -35,7 +35,16 @@ public class ReminderEntry {
     public void setTitle(String title) {this.title = title;}
     public Date getDate() {return this.date;}
     public void setDate(Date date) {this.date = date;}
-    public String getTime() {return this.time;}
+    public String getTime() {
+        String[] times = this.time.split(":");
+        for (int i = 0; i < times.length; i++) {
+            if (Integer.parseInt(times[i]) < 10){
+                times[i] = "0" + times[i];
+            }
+        }
+        String time = times[0] + ":" + times[1];
+        return time;
+    }
     public void setTime(String time) {this.time = time;}
     public String getComments() {return this.comments;}
     public void setComments(String comments) { this.comments = comments; }
