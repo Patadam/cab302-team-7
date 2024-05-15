@@ -1,13 +1,20 @@
 package com.wellnessapp.model;
 
+import com.wellnessapp.model.notice.NoticeBO;
+import com.wellnessapp.model.notice.NoticeManager;
+
 import java.sql.Connection;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ReminderDAO implements IReminderDAO{
     public final Connection connection;
+    private final NoticeManager noticeManager = new NoticeManager();
 
     public ReminderDAO() {
         connection = DatabaseConnection.getInstance();
@@ -73,6 +80,12 @@ public class ReminderDAO implements IReminderDAO{
             statement.setString(5, reminder.getUrl());
             statement.setInt(6, reminder.getId());
             statement.executeUpdate();
+            LocalDate date = reminder.getDate().toLocalDate();
+            LocalTime time = LocalTime.parse(reminder.getTime());
+            LocalDateTime dateTime = LocalDateTime.of(date, time);
+            System.out.println(dateTime.toString());
+            NoticeBO newNotice = NoticeBO.builder().title(reminder.getTitle()).text(reminder.getComments()).build();
+            noticeManager.scheduleNotice(dateTime, newNotice);
         } catch (Exception e) {
             e.printStackTrace();
         }
