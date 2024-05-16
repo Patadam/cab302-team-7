@@ -18,6 +18,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.TextArea?>
 <VBox alignment="TOP_LEFT" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.wellnessapp.controller.Reminder"
 >
@@ -59,18 +60,24 @@
                         <javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="59" initialValue="0" />
                     </valueFactory>
                 </Spinner>
-
-                <Label text="Notes:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="Notes" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity"/>
-
-                <Label text="Source:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <TextField fx:id="Source" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity"/>
-
-
             </GridPane>
+            <HBox spacing="10">
+                <Button text="09:00" onAction="#on9AM" maxWidth="Infinity"/>
+                <Button text="11:00" onAction="#on11AM" maxWidth="Infinity"/>
+                <Button text="13:00" onAction="#on1PM" maxWidth="Infinity"/>
+                <Button text="15:00" onAction="#on3PM" maxWidth="Infinity"/>
+                <Button text="17:00" onAction="#on5PM" maxWidth="Infinity"/>
+            </HBox>
+            <VBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text="Notes:"/>
+                <TextArea fx:id="Notes" wrapText="true"/>
+
+                <Label text="Source:" />
+                <TextArea fx:id="Source" wrapText="true" maxHeight="30"/>
+            </VBox>
             <HBox spacing="10.0" alignment="CENTER">
                 <Button text="Confirm" onAction="#onConfirmButtonClick"/>
-                <Button fx:id="cancelButton" text="Cancel" onAction="#onCancelButtonClick"/>
+                <Button fx:id="cancelButton" text="Home" onAction="#onCancelButtonClick"/>
                 <Button text="Delete" onAction="#onDelete"/>
             </HBox>
         </VBox>
