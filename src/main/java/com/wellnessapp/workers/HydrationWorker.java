@@ -27,7 +27,7 @@ public class HydrationWorker {
                     NoticeBO notice = NoticeBO.builder().title("Remember to have some water!").text(String.format("You haven't had water in the last %s minutes", 60)).build();
                     noticeManager.scheduleNotice(LocalDateTime.now(), notice);
                 }
-            }, 1, 5, TimeUnit.SECONDS);
+            }, 1, 5, TimeUnit.MINUTES);
         }
     }
 
