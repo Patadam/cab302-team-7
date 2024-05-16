@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,6 +29,8 @@ public class SignUpController {
 
     @FXML
     private Hyperlink loginLink;
+    @FXML
+    private Label signupPasswordError;
 
     UserDAO userDAO;
 
@@ -48,11 +51,17 @@ public class SignUpController {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        if (password.equals(confirmPassword)) {
+        if (password.length() <8) {
+            signupPasswordError.setText("Password must have 8 characters or more");
+        }
+
+        else if (password.equals(confirmPassword)) {
             User user = new User(email, password);
             userDAO.insert(user);
             goToLoginPage();
-
+        }
+        else {
+            signupPasswordError.setText("Please make sure your passwords match");
         }
     }
     @FXML

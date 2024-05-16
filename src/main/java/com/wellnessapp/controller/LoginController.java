@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,6 +33,11 @@ public class LoginController {
     private Hyperlink signupLink;
 
     @FXML
+    private Label loginError;
+
+
+
+    @FXML
     private void handleLogin(ActionEvent event) throws IOException {
 
         String email = emailField.getText();
@@ -48,6 +54,10 @@ public class LoginController {
             stage.setScene(scene);
 
         }
+        else {
+            loginError.setText("Invalid credentials, Please enter correct credentials");
+        }
+
     }
 
     @FXML
