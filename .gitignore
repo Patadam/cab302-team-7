@@ -30,3 +30,9 @@ bin/
 
 /target
 database.db
+
+.idea/dataSources
+.idea/workspace.xml
+.idea/sqldialects.xml
+.idea/dataSources.xml
+.idea/dataSources.local.xml
