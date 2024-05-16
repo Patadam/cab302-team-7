@@ -29,8 +29,10 @@
 
         <TextField fx:id="emailField" promptText="Email Address" alignment="CENTER" maxWidth="200"/>
 
+
         <PasswordField fx:id="passwordField" promptText="Password" alignment="CENTER"  maxWidth="200"/>
 
+        <Label fx:id="loginError" styleClass="error-text"/>
 
         <Button text="Login" onAction="#handleLogin" alignment="CENTER" prefWidth="200" />
 
