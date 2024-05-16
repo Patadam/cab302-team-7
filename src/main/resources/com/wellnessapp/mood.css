@@ -1,0 +1,15 @@
+/*.chart-wrapper {*/
+/*    -fx-background-color: red;*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*    -fx-background-radius: 4px;*/
+/*}*/
+
+
+#base {
+
+}
+
+
+#chart .chart-plot-background {
+    -fx-background-color: -bg-light-200;
+}

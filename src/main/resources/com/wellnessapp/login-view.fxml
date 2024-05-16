@@ -32,7 +32,7 @@
         <PasswordField fx:id="passwordField" promptText="Password" alignment="CENTER"  maxWidth="200"/>
 
 
-        <Button text="Login" onAction="#handleLogin" alignment="CENTER" />
+        <Button text="Login" onAction="#handleLogin" alignment="CENTER" prefWidth="200" />
 
         <HBox alignment="CENTER">
             <Text>Don't have an account? </Text>
@@ -41,4 +41,16 @@
 
 
     </VBox>
+<!--
+    <HBox>
+        <VBox >
+            <Button styleClass="box-button" >
+                test
+                <ImageView fitWidth="35" fitHeight="35">
+                    <Image url="@images/image.png"/>
+                </ImageView>
+&lt;!&ndash;                <ImageView fx:id="moodIcon" fitWidth="35" fitHeight="35" preserveRatio="true" />&ndash;&gt;
+            </Button>
+        </VBox>
+    </HBox>-->
 </StackPane>
