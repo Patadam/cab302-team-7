@@ -1,15 +1,25 @@
 package com.wellnessapp.controller;
 
+import com.wellnessapp.Main;
+import com.wellnessapp.annotations.ApplyStylesheet;
+import com.wellnessapp.model.User;
+import com.wellnessapp.services.AuthService;
 import com.wellnessapp.services.TrayService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.net.URL;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class BaseController implements IBaseController {
     @FXML private Pane base;
+    @FXML private Label userEmail;
     private Stage stage;
 
     /**
@@ -19,7 +29,33 @@ public class BaseController implements IBaseController {
     public BaseController() {
         onMount(()->{
             getStage().setOnCloseRequest((event) -> TrayService.handleCloseWithSystemTray(getStage()));
+            initStylesheet();
+            initUser();
+            TrayService.handleCloseWithSystemTray(getStage());
         });
+    }
+
+    private void initUser() {
+        User currentUser = AuthService.getInstance().getCurrentUser();
+        if (currentUser != null && userEmail != null) {
+            userEmail.setText(currentUser.getEmail());
+        }
+    }
+
+    private void initStylesheet() {
+        stage.getScene().getStylesheets().add(
+                Objects.requireNonNull(Main.class.getResource("global.css")).toExternalForm()
+        );
+
+        Class<?> controllerClass = getClass();
+        ApplyStylesheet annotation = controllerClass.getAnnotation(ApplyStylesheet.class);
+        if (annotation != null) {
+            URL css = Main.class.getResource(annotation.value());
+            if (css != null) {
+                stage.getScene().getStylesheets().add(css.toExternalForm());
+            }
+        }
+
     }
 
     /**
@@ -34,7 +70,8 @@ public class BaseController implements IBaseController {
             }
             return this.stage;
         } catch (Exception ex) {
-            throw new NoSuchElementException("You must set fx:id=\"base\" on all fxml referenced by " + this.getClass());
+            throw new RuntimeException(ex);
+            //throw new NoSuchElementException("You must set fx:id=\"base\" on all fxml referenced by " + this.getClass());
         }
     }
 

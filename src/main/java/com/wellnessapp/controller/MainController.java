@@ -3,6 +3,7 @@ package com.wellnessapp.controller;
 import com.wellnessapp.Main;
 import com.wellnessapp.model.hydration.HydrationEntry;
 import com.wellnessapp.model.hydration.HydrationManager;
+import com.wellnessapp.services.TrayService;
 import com.wellnessapp.workers.HydrationWorker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 
 public class MainController extends BaseController {
@@ -23,6 +26,7 @@ public class MainController extends BaseController {
     @FXML private Label contactUsLabel;
     @FXML private Button hydrationButton;
     @FXML private Button contactUsButton;
+    @FXML private Pane base;
 
     private Stage popup = null;
     private Stage settingsPopup = null;
@@ -34,8 +38,11 @@ public class MainController extends BaseController {
     //--// Initialise //--//
     @FXML
     public void initialize(){
-        Image image = new Image(getClass().getResourceAsStream("/Images/Computer.png"));
-        imageView.setImage(image);
+        String loc = Main.class.getResource("images/wt_logo_wide.png").toExternalForm();
+        if (loc != null) {
+            Image image = new Image(loc);
+            imageView.setImage(image);
+        }
     }
 
     //--// Wellness Tips //--//
@@ -102,15 +109,18 @@ public class MainController extends BaseController {
     // Hydration
     @FXML
     protected void onHydrationButton() throws IOException {
+        HydrationManager manager = new HydrationManager();
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("New hydration entry");
         ButtonType confirm = new ButtonType("Confirm", ButtonBar.ButtonData.YES);
         ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialog.setContentText("Are you sure you want to record a new water entry?");
+        dialog.setContentText(
+                String.format("You last had water %s minutes ago.\nAre you sure you want to record a new water entry?",
+                        manager.timeSinceLastHydration()/60));
         dialog.getDialogPane().getButtonTypes().addAll(confirm, close);
         dialog.showAndWait().ifPresent(response -> {
             if (response == confirm) {
-                HydrationManager manager = new HydrationManager();
+
                 manager.add(new HydrationEntry());
             }
         });
@@ -148,5 +158,10 @@ public class MainController extends BaseController {
             // If the popup is already showing, bring it to the front
             settingsPopup.toFront();
         }
+    }
+
+    @FXML
+    protected void onFullExitButton() {
+        TrayService.handleExit();
     }
 }
