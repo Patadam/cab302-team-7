@@ -1,6 +1,7 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.services.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,6 +34,11 @@ public class LoginController {
     private Hyperlink signupLink;
 
     @FXML
+    private Label loginError;
+
+
+
+    @FXML
     private void handleLogin(ActionEvent event) throws IOException {
 
         String email = emailField.getText();
@@ -46,8 +53,12 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
             scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
             stage.setScene(scene);
-
+            AuthService.getInstance().setCurrentUser(user);
         }
+        else {
+            loginError.setText("Invalid credentials, Please enter correct credentials");
+        }
+
     }
 
     @FXML

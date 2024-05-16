@@ -15,12 +15,12 @@
 
 <?import javafx.scene.image.ImageView?>
 
-<VBox fx:id="base" alignment="TOP_CENTER" styleClass="popup" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
+<?import javafx.scene.control.Spinner?>
+<VBox fx:id="base" alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.wellnessapp.controller.MoodPopupController">
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
   </padding>
   <HBox spacing="20">
-    <ImageView fx:id="moodIcon" fitWidth="35" fitHeight="35" preserveRatio="true" />
     <Label text="Mood entry" wrapText="true" style="-fx-font-size: 20px;"/>
   </HBox>
 
@@ -48,8 +48,8 @@
       <VBox>
         <Label text="Time" wrapText="true" style="-fx-font-size: 16px;"/>
         <HBox>
-          <TextField prefWidth="30.0" fx:id="timeHours"/>
-          <TextField prefWidth="30.0" fx:id="timeMinutes"/>
+          <Spinner prefWidth="70.0" fx:id="timeHours" min="0" max="23" initialValue="0" />
+          <Spinner prefWidth="70.0" fx:id="timeMinutes" min="0" max="59" initialValue="0" />
         </HBox>
       </VBox>
     </HBox>

@@ -1,7 +1,9 @@
 package com.wellnessapp;
 
+import com.wellnessapp.model.User;
 import com.wellnessapp.model.hydration.HydrationDAO;
 import com.wellnessapp.model.hydration.HydrationEntry;
+import com.wellnessapp.services.AuthService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +21,7 @@ public class HydrationDAOTest {
     public static void setupTestDB() {
         dao = new HydrationDAO();
         conn = dao.connection;
+        AuthService.getInstance().setCurrentUser(new User("DEFAULT_TEST_USER", "DEFAULT_PASSWORD"));
     }
 
     @BeforeEach

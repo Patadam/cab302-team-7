@@ -23,7 +23,6 @@ public class HydrationWorker {
             HydrationManager manager = new HydrationManager();
             NoticeManager noticeManager = new NoticeManager();
             executorService.scheduleAtFixedRate(() -> {
-
                 if (manager.timeSinceLastHydration() >= NoticeThreshold ) {
                     NoticeBO notice = NoticeBO.builder().title("Remember to have some water!").text(String.format("You haven't had water in the last %s minutes", 60)).build();
                     noticeManager.scheduleNotice(LocalDateTime.now(), notice);

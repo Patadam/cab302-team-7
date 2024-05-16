@@ -3,6 +3,7 @@ package com.wellnessapp.controller;
 import com.wellnessapp.Main;
 import com.wellnessapp.model.ReminderDAO;
 import com.wellnessapp.model.ReminderEntry;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,8 +23,8 @@ public class Reminder {
     @FXML private TextField Title;
     @FXML private Spinner hourSpinner;
     @FXML private Spinner minuteSpinner;
-    @FXML private TextField Notes;
-    @FXML private TextField Source;
+    @FXML private TextArea Notes;
+    @FXML private TextArea Source;
     @FXML private ListView<ReminderEntry> ReminderListView;
     @FXML private Button cancelButton;
 
@@ -159,5 +160,32 @@ public class Reminder {
             ReminderListView.getSelectionModel().select(nextReminder);
             selectReminder(nextReminder);
         }
+    }
+    public void on9AM() {
+        hourSpinner.getValueFactory().setValue(9);
+        minuteSpinner.getValueFactory().setValue(0);
+
+    }
+
+    public void on11AM() {
+        hourSpinner.getValueFactory().setValue(11);
+        minuteSpinner.getValueFactory().setValue(0);
+
+    }
+
+    public void on1PM() {
+        hourSpinner.getValueFactory().setValue(13);
+        minuteSpinner.getValueFactory().setValue(0);
+
+    }
+    public void on3PM() {
+        hourSpinner.getValueFactory().setValue(15);
+        minuteSpinner.getValueFactory().setValue(0);
+
+    }
+    public void on5PM() {
+        hourSpinner.getValueFactory().setValue(17);
+        minuteSpinner.getValueFactory().setValue(0);
+
     }
 }

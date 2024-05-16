@@ -1,6 +1,7 @@
 package com.wellnessapp.model.hydration;
 
 import com.wellnessapp.model.DatabaseConnection;
+import com.wellnessapp.services.AuthService;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -21,7 +22,9 @@ public class HydrationDAO implements IHydrationDAO {
             connection.createStatement().execute(
                     "CREATE TABLE IF NOT EXISTS hydration ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + "dateTime TIMESTAMP"
+                    + "dateTime TIMESTAMP,"
+                    + "user_email VARCHAR,"
+                    + "FOREIGN KEY (user_email) REFERENCES users(email)"
                     + ")"
             );
         } catch (SQLException e) {
@@ -32,8 +35,9 @@ public class HydrationDAO implements IHydrationDAO {
     @Override
     public void insert(HydrationEntry entry) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO hydration (dateTime) VALUES (?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO hydration (dateTime, user_email) VALUES (?, ?)");
             statement.setTimestamp(1, Timestamp.valueOf(entry.getDateTime()));
+            statement.setString(2, AuthService.getInstance().getCurrentUser().getEmail());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()){
@@ -57,7 +61,9 @@ public class HydrationDAO implements IHydrationDAO {
     public HydrationEntry getLatestEntry() {
         HydrationEntry entry = null;
         try {
-            ResultSet r = connection.createStatement().executeQuery("SELECT * FROM hydration ORDER BY dateTime DESC LIMIT 1");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM hydration WHERE user_email = ? ORDER BY dateTime DESC LIMIT 1");
+            statement.setString(1, AuthService.getInstance().getCurrentUser().getEmail());
+            ResultSet r = statement.executeQuery();
             while (r.next()) {
                 int id = r.getInt("id");
                 LocalDateTime dateTime = r.getTimestamp("dateTime").toLocalDateTime();
@@ -74,7 +80,9 @@ public class HydrationDAO implements IHydrationDAO {
     public List<HydrationEntry> getAll() {
         List<HydrationEntry> entries = new ArrayList<>();
         try {
-            ResultSet r = connection.createStatement().executeQuery("SELECT * FROM hydration ORDER BY dateTime");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM hydration WHERE user_email = ? ORDER BY dateTime DESC");
+            statement.setString(1, AuthService.getInstance().getCurrentUser().getEmail());
+            ResultSet r = statement.executeQuery();
             while (r.next()) {
                 int id = r.getInt("id");
                 LocalDateTime dateTime = r.getTimestamp("dateTime").toLocalDateTime();

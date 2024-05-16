@@ -25,7 +25,6 @@ public class HydrationManager {
             long datum = entry.getDateTime().toEpochSecond(ZoneOffset.UTC);
             return now - datum;
         } else {
-            System.err.println("Could not get the latest entry in the Hydration table via hydrationDAO");
             return 0;
         }
     }

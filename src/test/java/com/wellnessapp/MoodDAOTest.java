@@ -1,9 +1,11 @@
 package com.wellnessapp;
 
 import com.wellnessapp.enums.MoodType;
+import com.wellnessapp.model.User;
 import com.wellnessapp.model.mood.MoodDAO;
 import com.wellnessapp.model.mood.MoodEntry;
 
+import com.wellnessapp.services.AuthService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,8 +26,7 @@ public class MoodDAOTest {
     public static void setupTestDB() {
         dao = new MoodDAO();
         con = dao.connection;
-
-        //originalSize = dao.getAllEntries().size();
+        AuthService.getInstance().setCurrentUser(new User("DEFAULT_TEST_USER", "DEFAULT_PASSWORD"));
     }
 
     @BeforeEach

@@ -7,6 +7,8 @@ public interface IReminderDAO {
 
     void Create(ReminderEntry entry) throws SQLException;
 
+    void CreateDefaultReminders(ReminderEntry entry, String email) throws SQLException;
+
     void deleteReminder(ReminderEntry entry);
 
     void updateReminder(ReminderEntry reminder);
