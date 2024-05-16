@@ -1,0 +1,7 @@
+module:com.wellnessapp
+com.wellnessapp
+com.wellnessapp.controller
+com.wellnessapp.model
+com.wellnessapp.model.hydration
+com.wellnessapp.model.mood
+com.wellnessapp.model.notice
