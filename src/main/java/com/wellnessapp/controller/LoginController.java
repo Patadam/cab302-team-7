@@ -1,6 +1,7 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.services.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +53,7 @@ public class LoginController {
             Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
             scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
             stage.setScene(scene);
-
+            AuthService.getInstance().setCurrentUser(user);
         }
         else {
             loginError.setText("Invalid credentials, Please enter correct credentials");

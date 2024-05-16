@@ -1,6 +1,11 @@
-package com.wellnessapp.model;
+package com.wellnessapp.model.mood;
 
 import com.wellnessapp.enums.MoodType;
+import com.wellnessapp.model.DatabaseConnection;
+import com.wellnessapp.model.mood.IMoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
+import com.wellnessapp.services.AuthService;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +24,9 @@ public class MoodDAO implements IMoodDAO {
                             + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                             + "timestamp Timestamp NOT NULL,"
                             + "mood VARCHAR NOT NULL,"
-                            + "comment VARCHAR"
+                            + "comment VARCHAR,"
+                            + "user_email VARCHAR,"
+                            + "FOREIGN KEY (user_email) REFERENCES users(email)"
                             + ")"
             );
         } catch(SQLException exception) {
@@ -38,10 +45,11 @@ public class MoodDAO implements IMoodDAO {
     @Override
     public void Create(MoodEntry entry) throws SQLException {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO moods (mood, timestamp, comment) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO moods (mood, timestamp, comment, user_email) VALUES (?, ?, ?, ?)");
             statement.setString(1, entry.getMood().toString().toUpperCase());
             statement.setTimestamp(2, Timestamp.valueOf(entry.getTimestamp()));
             statement.setString(3, entry.getComment());
+            statement.setString(4, AuthService.getInstance().getCurrentUser().getEmail());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -60,8 +68,9 @@ public class MoodDAO implements IMoodDAO {
     @Override
     public MoodEntry getEntryById(int id) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM moods WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM moods WHERE id = ? AND user_email = ?");
             statement.setInt(1, id);
+            statement.setString(2, AuthService.getInstance().getCurrentUser().getEmail());
             ResultSet r = statement.executeQuery();
             if (r.next()) {
                 int entryId = r.getInt("id");
@@ -83,7 +92,9 @@ public class MoodDAO implements IMoodDAO {
     public List<MoodEntry> getAllEntries() {
         List<MoodEntry> entries = new ArrayList<>();
         try {
-            ResultSet r = connection.createStatement().executeQuery("SELECT * FROM moods ORDER BY timestamp");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM moods WHERE user_email = ? ORDER BY timestamp");
+            statement.setString(1, AuthService.getInstance().getCurrentUser().getEmail());
+            ResultSet r = statement.executeQuery();
             while (r.next()) {
                 int id = r.getInt("id");
                 MoodType mood = MoodType.valueOf(r.getString("mood"));

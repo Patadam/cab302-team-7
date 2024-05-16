@@ -1,10 +1,11 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.annotations.ApplyStylesheet;
 import com.wellnessapp.enums.MoodType;
-import com.wellnessapp.model.MoodDAO;
-import com.wellnessapp.model.MoodEntry;
-import com.wellnessapp.model.MoodManager;
+import com.wellnessapp.model.mood.MoodDAO;
+import com.wellnessapp.model.mood.MoodEntry;
+import com.wellnessapp.model.mood.MoodManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,11 +16,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@ApplyStylesheet("mood.css")
 public class MoodPopupController extends BaseController {
     @FXML private Button createEntryBtn;
     @FXML private Button cancelEntryBtn;
-    @FXML private TextField timeHours;
-    @FXML private TextField timeMinutes;
+    @FXML private Spinner<Integer> timeHours;
+    @FXML private Spinner<Integer> timeMinutes;
     @FXML private ImageView moodIcon;
     @FXML private ComboBox moodValue;
     @FXML private DatePicker datePicker;
@@ -31,21 +33,19 @@ public class MoodPopupController extends BaseController {
     /**
      * Starter method that runs on page mount
      */
+    @FXML
     public void initialize(){
         moodManager = new MoodManager(new MoodDAO());
 
-        final String hours = now.format(DateTimeFormatter.ofPattern("HH"));
-        final String minutes = now.format(DateTimeFormatter.ofPattern("mm"));
-        timeHours.setText(hours);
-        timeMinutes.setText(minutes);
+        final int hours = now.getHour(); //now.format(DateTimeFormatter.ofPattern("HH"));
+        final int minutes = now.getMinute(); //now.format(DateTimeFormatter.ofPattern("mm"));
+        timeHours.getValueFactory().setValue(hours);
+        timeMinutes.getValueFactory().setValue(minutes);
+        //timeHours.setText(hours);
+        //timeMinutes.setText(minutes);
         datePicker.setValue(LocalDate.now());
 
-        loadImages();
-    }
 
-    private void loadImages() {
-        Image image = new Image(Main.class.getResourceAsStream("/com/wellnessapp/mood-icon.png"));
-        moodIcon.setImage(image);
     }
 
     @FXML
@@ -53,10 +53,8 @@ public class MoodPopupController extends BaseController {
         final boolean isInputValid = validateInputs();
         if (isInputValid) {
             final MoodType mood = MoodType.valueOf(moodValue.getValue().toString().toUpperCase());
-            String hours = timeHours.getText();
-            String minutes = timeMinutes.getText();
-            if (hours.length() == 1) { hours = "0"+hours; }
-            if (minutes.length() == 1) { minutes = "0"+minutes; }
+            String hours = timeHours.getValue().toString();
+            String minutes = timeMinutes.getValue().toString();
             final LocalDate date = datePicker.getValue();
             final LocalDateTime dateTime = LocalDateTime.parse(date + " " + hours + ":" + minutes, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             final String comment = commentField.getText();
@@ -68,19 +66,8 @@ public class MoodPopupController extends BaseController {
     }
 
     private boolean validateInputs() {
-        final int hours = Integer.parseInt(timeHours.getText());
-        final int minutes = Integer.parseInt(timeHours.getText());
-
         if (moodValue.getValue() == null) {
             errorText.setText("You must select a mood");
-            return false;
-        }
-        if (hours > 23 || hours < 0) {
-            errorText.setText("The set hour cannot exceed 23 or be under 0");
-            return false;
-        }
-        if (minutes > 59 || minutes < 0) {
-            errorText.setText("The set minute cannot exceed 59 or be under 0");
             return false;
         }
         errorText.setText("");

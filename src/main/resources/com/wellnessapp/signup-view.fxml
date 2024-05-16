@@ -34,8 +34,7 @@
         <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" alignment="CENTER"  maxWidth="200"/>
 
         <Label fx:id="signupPasswordError" styleClass="error-text"/>
-
-        <Button text="Sign Up" onAction="#handleSignUp" alignment="CENTER" />
+        <Button text="Sign Up" onAction="#handleSignUp" alignment="CENTER" prefWidth="200" />
 
             <HBox alignment="CENTER">
                 <Text>Already have an account? </Text>

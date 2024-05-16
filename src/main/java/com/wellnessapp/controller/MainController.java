@@ -1,16 +1,20 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.model.hydration.HydrationEntry;
+import com.wellnessapp.model.hydration.HydrationManager;
+import com.wellnessapp.services.TrayService;
+import com.wellnessapp.workers.HydrationWorker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -20,20 +24,32 @@ public class MainController extends BaseController {
     @FXML private Label TakeText;
     @FXML private ImageView imageView;
     @FXML private Label contactUsLabel;
+    @FXML private Button hydrationButton;
+    @FXML private Button contactUsButton;
+    @FXML private Pane base;
 
     private Stage popup = null;
+    private Stage settingsPopup = null;
+
+    public MainController() {
+        new HydrationWorker().startBackgroundExecutor();
+    }
 
     //--// Initialise //--//
     @FXML
     public void initialize(){
-        Image image = new Image(getClass().getResourceAsStream("/Images/Computer.png"));
-        imageView.setImage(image);
+        String loc = Main.class.getResource("images/wt_logo_wide.png").toExternalForm();
+        if (loc != null) {
+            Image image = new Image(loc);
+            imageView.setImage(image);
+        }
     }
 
     //--// Wellness Tips //--//
     @FXML
     protected void onContactusButtonClick() {
         contactUsLabel.setText("CAB302Team7@qut.edu.au");
+        contactUsButton.setVisible(false);
     }
     @FXML
     protected void onTakeButtonClick() {
@@ -88,5 +104,64 @@ public class MainController extends BaseController {
         getStage().setScene(scene);
         getStage().show();
         getStage().centerOnScreen();
+    }
+
+    // Hydration
+    @FXML
+    protected void onHydrationButton() throws IOException {
+        HydrationManager manager = new HydrationManager();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("New hydration entry");
+        ButtonType confirm = new ButtonType("Confirm", ButtonBar.ButtonData.YES);
+        ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.setContentText(
+                String.format("You last had water %s minutes ago.\nAre you sure you want to record a new water entry?",
+                        manager.timeSinceLastHydration()/60));
+        dialog.getDialogPane().getButtonTypes().addAll(confirm, close);
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == confirm) {
+
+                manager.add(new HydrationEntry());
+            }
+        });
+    }
+
+    // Reminders
+    @FXML
+    protected void onReminderButtonClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Reminder-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
+        scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
+        getStage().setTitle("Mood Chart");
+        getStage().setScene(scene);
+        getStage().show();
+        getStage().centerOnScreen();
+    }
+    @FXML
+    protected void onSettingsButtonClick() throws IOException {
+        if (settingsPopup == null || !settingsPopup.isShowing()) {
+            // Load the FXML file for the settings popup
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("settings-popup.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+
+            // Create a new stage for the popup
+            settingsPopup = new Stage();
+            settingsPopup.setScene(scene);
+            settingsPopup.setTitle("Settings");
+
+            // Set the modality of the popup to APPLICATION_MODAL
+            settingsPopup.initModality(Modality.APPLICATION_MODAL);
+
+            // Show the popup
+            settingsPopup.show();
+        } else {
+            // If the popup is already showing, bring it to the front
+            settingsPopup.toFront();
+        }
+    }
+
+    @FXML
+    protected void onFullExitButton() {
+        TrayService.handleExit();
     }
 }
