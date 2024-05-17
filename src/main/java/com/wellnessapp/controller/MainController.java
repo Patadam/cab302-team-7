@@ -160,4 +160,9 @@ public class MainController extends BaseController {
         }
     }
 
+    @FXML
+    protected void onFullExitButton() {
+        TrayService.handleExit();
+    }
+
 }
