@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.CheckBox?>
-
+<?import javafx.scene.control.Button?> <!-- Add this import statement for Button -->
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleGroup?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.wellnessapp.controller.SettingsPopupController"
-      prefWidth="400" prefHeight="300">
+      fx:id="mainContainer"
+        fx:controller="com.wellnessapp.controller.SettingsPopupController"
+        prefWidth="400" prefHeight="300">
 
-    <children>
-        <HBox>
-            <Label text="Do you read daily wellness tips?"/>
-            <CheckBox text="Yes" fx:id="option1Checkbox"/>
-            <CheckBox text="No" fx:id="option2Checkbox"/>
-        </HBox>
-        <HBox>
-            <Label text="Setting 1:"/>
-            <CheckBox text="othersettings" fx:id="option3Checkbox"/>
-        </HBox>
-        <HBox>
-            <Label text="Setting 2:"/>
-            <!-- Add more checkboxes or settings as needed -->
-        </HBox>
-    </children>
 
-    <fx:define>
-        <ToggleGroup fx:id="toggleGroup"/>
-    </fx:define>
-</VBox>
+<children>
+<HBox>
+    <Label text="Do you read daily wellness tips?"/>
+    <CheckBox text="Yes" fx:id="yesCheckbox" onAction="#handleYesCheckboxAction"/>
+    <CheckBox text="No" fx:id="noCheckbox" onAction="#handleNoCheckboxAction"/>
+    <!-- Add the "Yes" and "No" checkboxes here -->
+</HBox>
+
+<Label fx:id="welcomeText" />
+
+
+<HBox>
+    <Label text="Report and Support:"/>
+    <Button text="Report Issue" onAction="#openIssueReportForm"/>
+    <Button fx:id="SupportResources" text="Support Resources" onAction="#onSupportusButtonClick"/>
+
+
+    <Button text="Change Background Color" onAction="#changeBackgroundColor"/>
+</HBox>
+</children>
+
+
+
+<fx:define>
+<ToggleGroup fx:id="toggleGroup"/>
+</fx:define>
+        </VBox>
