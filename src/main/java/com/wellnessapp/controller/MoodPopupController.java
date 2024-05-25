@@ -1,14 +1,13 @@
 package com.wellnessapp.controller;
 
-import com.wellnessapp.Main;
 import com.wellnessapp.annotations.ApplyStylesheet;
+import com.wellnessapp.annotations.ApplyTitle;
 import com.wellnessapp.enums.MoodType;
 import com.wellnessapp.model.mood.MoodDAO;
 import com.wellnessapp.model.mood.MoodEntry;
 import com.wellnessapp.model.mood.MoodManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.sql.SQLException;
@@ -16,6 +15,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Responsible for managing logic for the mood entry popup.
+ */
+@ApplyTitle("New Mood Entry")
 @ApplyStylesheet("mood.css")
 public class MoodPopupController extends BaseController {
     @FXML private Button createEntryBtn;

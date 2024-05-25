@@ -7,13 +7,24 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.TimerTask;
 
+/**
+ * NoticeTask is a TimerTask implementation that displays notifications based on a NoticeBO.
+ * @see TimerTask
+ * @see NoticeBO
+ */
 public class NoticeTask extends TimerTask {
     private final NoticeBO notice;
-
+    /**
+     * Constructs a NoticeTask with the provided NoticeBO.
+     * @param notice The NoticeBO containing title and text for the notification.
+     */
     public NoticeTask(NoticeBO notice) {
         this.notice = notice;
     }
-
+    /**
+     * Runs the task, displaying a notification with the notice's title and text.
+     * Uses controlFX/JavaFX notifications if available, falls back to system tray notifications if not.
+     */
     @Override
     public void run() {
         Platform.runLater(()->{
@@ -21,6 +32,9 @@ public class NoticeTask extends TimerTask {
                 Notifications.create()
                         .title(notice.getTitle())
                         .text(notice.getText())
+                        .onAction(actionEvent -> {
+                            System.out.println(actionEvent);
+                        })
                         .show();
             } catch (Exception ex) {
                 TrayIcon icon = Arrays.stream(SystemTray.getSystemTray().getTrayIcons())

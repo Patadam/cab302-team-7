@@ -3,7 +3,6 @@ package com.wellnessapp.controller;
 import com.wellnessapp.Main;
 import com.wellnessapp.model.ReminderDAO;
 import com.wellnessapp.model.ReminderEntry;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +16,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Responsible for managing the logic for the reminder view.
+ */
 public class Reminder {
 
     @FXML private DatePicker datePicker;

@@ -2,17 +2,21 @@ package com.wellnessapp.model.mood;
 
 import com.wellnessapp.enums.MoodType;
 import com.wellnessapp.model.DatabaseConnection;
-import com.wellnessapp.model.mood.IMoodDAO;
-import com.wellnessapp.model.mood.MoodEntry;
 import com.wellnessapp.services.AuthService;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of the Mood Database Access Object (DAO) interface.
+ * Provides methods to interact with mood entries stored in the database.
+ */
 public class MoodDAO implements IMoodDAO {
     public final Connection connection;
+    /**
+     * Constructs a MoodDAO object and initializes the database connection.
+     */
     public MoodDAO() {
         connection = DatabaseConnection.getInstance();
         createTable();
@@ -60,11 +64,45 @@ public class MoodDAO implements IMoodDAO {
         }
     }
 
+    /**
+     * Deletes a mood entry from the database.
+     * @param entry The mood entry to delete.
+     */
     @Override
     public void Delete(MoodEntry entry) {
-
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM moods WHERE id = ?");
+            statement.setInt(1, entry.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Updates an existing mood entry in the database.
+     * @param entry The mood entry to update.
+     */
+    @Override
+    public void Update(MoodEntry entry) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE moods SET mood = ?, timestamp = ?, comment = ? WHERE id = ?");
+            statement.setString(1, entry.getMood().toString().toUpperCase());
+            statement.setTimestamp(2, Timestamp.valueOf(entry.getTimestamp()));
+            statement.setString(3, entry.getComment());
+            statement.setInt(4, entry.getId());
+            statement.executeUpdate();
+            System.out.println("Converted mood to " + entry.getMood().toString().toUpperCase());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Retrieves a mood entry from the database by its ID.
+     * @param id The ID of the mood entry to retrieve.
+     * @return The mood entry with the specified ID, or {@code null} if not found.
+     */
     @Override
     public MoodEntry getEntryById(int id) {
         try {
@@ -88,11 +126,21 @@ public class MoodDAO implements IMoodDAO {
         return null;
     }
 
+    /**
+     * Retrieves all mood entries from the database.
+     * @param sorted Indicates whether the entries should be sorted, when sorted returns order by DESC, otherwise ASC
+     * @return A list of mood entries.
+     */
     @Override
-    public List<MoodEntry> getAllEntries() {
+    public List<MoodEntry> getAllEntries(boolean sorted) {
         List<MoodEntry> entries = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM moods WHERE user_email = ? ORDER BY timestamp");
+            PreparedStatement statement;
+            if (sorted) {
+                statement = connection.prepareStatement("SELECT * FROM moods WHERE user_email = ? ORDER BY timestamp DESC");
+            } else {
+                statement = connection.prepareStatement("SELECT * FROM moods WHERE user_email = ? ORDER BY timestamp ASC");
+            }
             statement.setString(1, AuthService.getInstance().getCurrentUser().getEmail());
             ResultSet r = statement.executeQuery();
             while (r.next()) {

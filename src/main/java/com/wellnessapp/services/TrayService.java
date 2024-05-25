@@ -8,11 +8,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.Objects;
-
+/**
+ * The TrayService class provides methods to handle system tray
+ * operations such as minimizing to tray and returning from tray.
+ */
 public class TrayService {
 
     private static SystemTray systemTray;
@@ -20,6 +20,10 @@ public class TrayService {
 
     public TrayService() {}
 
+    /**
+     * Method to exit the application and force close without minimising to system tray.
+     * Performs tray cleanup
+     */
     public static void handleExit() {
         if (trayIcon != null) {
             systemTray.remove(trayIcon);
@@ -27,19 +31,24 @@ public class TrayService {
         Platform.exit();
         System.exit(0);
     }
+
+    /**
+     * Sets up the application to minimise to system tray by default when closed.
+     * @param stage The stage to set minimise when closed rule.
+     * Used in {@link com.wellnessapp.controller.BaseController}
+     */
     public static void handleCloseWithSystemTray(Stage stage) {
         if (SystemTray.isSupported()) {
             if (trayIcon == null) {
                 Platform.setImplicitExit(false);
                 systemTray = SystemTray.getSystemTray();
 
-                Image icon = null;
+                Image icon;
                 try {
-                    icon = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/wt_logo.png").toURI().toURL())); //Main.class.getResource("images/wt_logo.jpg")).toURI().toURL());
+                    icon = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/wt_logo.png").toURI().toURL()));
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-                //Toolkit.getDefaultToolkit().getImage(Main.class.getResource("images/wt_logo.png").toExternalForm());
 
                 PopupMenu popup = new PopupMenu();
 

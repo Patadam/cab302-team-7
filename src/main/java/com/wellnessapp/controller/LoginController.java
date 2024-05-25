@@ -1,23 +1,24 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.model.User;
+import com.wellnessapp.model.UserDAO;
 import com.wellnessapp.services.AuthService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.wellnessapp.model.User;
-import com.wellnessapp.model.UserDAO;
-
+/**
+ * Responsible for managing the logic for the login view.
+ */
 public class LoginController {
 
     UserDAO userDAO;

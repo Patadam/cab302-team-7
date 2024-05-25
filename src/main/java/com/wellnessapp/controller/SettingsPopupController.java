@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+/**
+ * Responsible for managing the logic for the settings popup.
+ */
 public class SettingsPopupController {
     @FXML private CheckBox reminderCheckbox;
     @FXML private CheckBox yesCheckbox;
