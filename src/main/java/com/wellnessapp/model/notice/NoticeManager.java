@@ -6,6 +6,11 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Timer;
 
+/**
+ * Manager responsible for simplifying logic to schedule notifications (notices)
+ * @see NoticeBO
+ * @see NoticeTask
+ */
 public class NoticeManager implements INoticeManager {
     private final Timer timer;
 

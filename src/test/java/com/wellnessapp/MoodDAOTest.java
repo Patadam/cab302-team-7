@@ -4,7 +4,6 @@ import com.wellnessapp.enums.MoodType;
 import com.wellnessapp.model.User;
 import com.wellnessapp.model.mood.MoodDAO;
 import com.wellnessapp.model.mood.MoodEntry;
-
 import com.wellnessapp.services.AuthService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,12 +50,12 @@ public class MoodDAOTest {
 
     @Test
     public void testAddMoodEntryToDatabase() throws SQLException {
-        int originalSize = dao.getAllEntries().size();
+        int originalSize = dao.getAllEntries(false).size();
         MoodEntry entry = new MoodEntry(MoodType.NEUTRAL);
         dao.Create(entry);
         assertNotNull(entry);
         assertTrue(entry.getId() > 0);
-        assertEquals(originalSize+1, dao.getAllEntries().size());
+        assertEquals(originalSize+1, dao.getAllEntries(false).size());
     }
 
     @Test
@@ -73,13 +73,13 @@ public class MoodDAOTest {
 
     @Test
     public void testGetAllMoodEntriesFromDatabase() throws SQLException {
-        int originalSize = dao.getAllEntries().size();
+        int originalSize = dao.getAllEntries(false).size();
 
         for (int i = 0; i < 6; i++) {
             dao.Create(new MoodEntry(MoodType.NEUTRAL));
         }
 
-        List<MoodEntry> entries = dao.getAllEntries();
+        List<MoodEntry> entries = dao.getAllEntries(false);
         assertNotNull(entries);
         assertEquals(originalSize+6, entries.size());
 
@@ -90,5 +90,22 @@ public class MoodDAOTest {
             assertNotNull(entry.getComment());
             assertNotNull(entry.getTimestamp());
         }
+    }
+
+    @Test
+    public void testUpdate() throws SQLException {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime future = now.plusDays(1);
+        MoodEntry entry = new MoodEntry(MoodType.NEUTRAL, now, "comment");
+        dao.Create(entry);
+        assertTrue(entry.getId() > 0);
+        entry.setComment("SuperDuperCool");
+        entry.setTimestamp(future);
+        entry.setMood(MoodType.HAPPY);
+        dao.Update(entry);
+        MoodEntry retrieved = dao.getEntryById(entry.getId());
+        assertEquals("SuperDuperCool", retrieved.getComment());
+        assertEquals(future.getDayOfYear(), retrieved.getTimestamp().getDayOfYear());
+        assertEquals(MoodType.HAPPY, retrieved.getMood());
     }
 }

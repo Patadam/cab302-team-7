@@ -4,6 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+/**
+ * Responsible for managing the logic for the settings popup.
+ */
 public class SettingsPopupController {
     @FXML private CheckBox reminderCheckbox;
     @FXML private CheckBox yesCheckbox;
@@ -30,8 +33,8 @@ public class SettingsPopupController {
             // Load reminder settings from persistence and update UI accordingly
             boolean remindersEnabled = reminderService.areRemindersEnabled();
             int reminderInterval = reminderService.getReminderInterval();
-            reminderCheckbox.setSelected(remindersEnabled);
-            reminderIntervalField.setText(String.valueOf(reminderInterval));
+            //reminderCheckbox.setSelected(remindersEnabled);
+            //reminderIntervalField.setText(String.valueOf(reminderInterval));
         } catch (Exception e) {
             // Handle initialization errors
             e.printStackTrace();

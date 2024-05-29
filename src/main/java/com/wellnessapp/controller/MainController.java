@@ -1,6 +1,7 @@
 package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
+import com.wellnessapp.annotations.ApplyTitle;
 import com.wellnessapp.model.hydration.HydrationEntry;
 import com.wellnessapp.model.hydration.HydrationManager;
 import com.wellnessapp.services.TrayService;
@@ -12,30 +13,39 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * Responsible for handling controller logic for the home page view,
+ * First controller to be initialised after successfully logging in.
+ */
+@ApplyTitle("WellTrack Home")
 public class MainController extends BaseController {
     @FXML private Button TipButton;
     @FXML private CheckBox agreeCheckBox;
-    @FXML private Label TakeText;
     @FXML private ImageView imageView;
     @FXML private Label contactUsLabel;
-    @FXML private Button hydrationButton;
     @FXML private Button contactUsButton;
-    @FXML private Pane base;
 
     private Stage popup = null;
     private Stage settingsPopup = null;
 
+    /**
+     * Constructs a MainController instance.
+     * Starts a background worker for hydration management.
+     * Is called on class initialisation before FXML is loaded.
+     */
     public MainController() {
         new HydrationWorker().startBackgroundExecutor();
     }
 
-    //--// Initialise //--//
+    /**
+     * FXML Starter method that executes after FXML has been initialised and after class has been initialised.
+     */
     @FXML
     public void initialize(){
         String loc = Main.class.getResource("images/wt_logo_wide.png").toExternalForm();
@@ -50,10 +60,6 @@ public class MainController extends BaseController {
     protected void onContactusButtonClick() {
         contactUsLabel.setText("CAB302Team7@qut.edu.au");
         contactUsButton.setVisible(false);
-    }
-    @FXML
-    protected void onTakeButtonClick() {
-        TakeText.setText("Take Test!");
     }
     @FXML
     protected void onCancelButtonClick() {
@@ -100,7 +106,6 @@ public class MainController extends BaseController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mood-chart-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
         scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
-        getStage().setTitle("Mood Chart");
         getStage().setScene(scene);
         getStage().show();
         getStage().centerOnScreen();
@@ -112,15 +117,17 @@ public class MainController extends BaseController {
         HydrationManager manager = new HydrationManager();
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("New hydration entry");
-        ButtonType confirm = new ButtonType("Confirm", ButtonBar.ButtonData.YES);
+        ButtonType confirm = new ButtonType("Confirm New Entry", ButtonBar.ButtonData.YES);
         ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.setContentText(
-                String.format("You last had water %s minutes ago.\nAre you sure you want to record a new water entry?",
+                String.format("""
+                                You will be sent a reminder if you haven't recorded a water entry in the last hour.\n
+                                You last had water %s minutes ago.""",
                         manager.timeSinceLastHydration()/60));
+        dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         dialog.getDialogPane().getButtonTypes().addAll(confirm, close);
         dialog.showAndWait().ifPresent(response -> {
             if (response == confirm) {
-
                 manager.add(new HydrationEntry());
             }
         });
@@ -132,7 +139,6 @@ public class MainController extends BaseController {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Reminder-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Main.WIDTH, Main.HEIGHT);
         scene.getStylesheets().add(Main.class.getResource("global.css").toExternalForm());
-        getStage().setTitle("Mood Chart");
         getStage().setScene(scene);
         getStage().show();
         getStage().centerOnScreen();

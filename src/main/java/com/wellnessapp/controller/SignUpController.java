@@ -16,6 +16,9 @@ import java.io.IOException;
 import com.wellnessapp.model.User;
 import com.wellnessapp.model.UserDAO;
 
+/**
+ * Responsible for managing the logic for the signup view.
+ */
 public class SignUpController {
 
     @FXML

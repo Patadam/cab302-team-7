@@ -2,21 +2,24 @@ package com.wellnessapp.controller;
 
 import com.wellnessapp.Main;
 import com.wellnessapp.annotations.ApplyStylesheet;
+import com.wellnessapp.annotations.ApplyTitle;
 import com.wellnessapp.model.User;
 import com.wellnessapp.services.AuthService;
 import com.wellnessapp.services.TrayService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.net.URL;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 
+/**
+ * The base controller used to abstract common logic from higher level controller classes.
+ * Base controller can be used on any controller connected to a view excluding login / signup and
+ * where the connected view conforms to having {@code fx:id=base} set on the root element.
+ */
 public class BaseController implements IBaseController {
     @FXML private Pane base;
     @FXML private Label userEmail;
@@ -31,6 +34,7 @@ public class BaseController implements IBaseController {
             getStage().setOnCloseRequest((event) -> TrayService.handleCloseWithSystemTray(getStage()));
             initStylesheet();
             initUser();
+            applyAnnotatedTitle();
             TrayService.handleCloseWithSystemTray(getStage());
         });
     }
@@ -55,7 +59,17 @@ public class BaseController implements IBaseController {
                 stage.getScene().getStylesheets().add(css.toExternalForm());
             }
         }
+    }
 
+    private void applyAnnotatedTitle() {
+        Class<?> controllerClass = getClass();
+        ApplyTitle annotation = controllerClass.getAnnotation(ApplyTitle.class);
+        if (annotation != null) {
+            String title = annotation.value();
+            if (title != null) {
+                stage.setTitle(title);
+            }
+        }
     }
 
     /**

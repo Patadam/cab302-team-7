@@ -4,15 +4,19 @@ import com.wellnessapp.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
+/**
+ * Responsible for managing the logic for the wellness tip view.
+ */
 public class WellnessTipController {
     @FXML private Label welcomeText;
     @FXML private TextArea wellnesstips;
@@ -67,12 +71,6 @@ public class WellnessTipController {
 
     public TextArea getWellnessTips() {
         return wellnesstips;
-    }
-
-    @FXML
-    protected void onCancelButtonClick() {
-        Stage stage = (Stage) Home.getScene().getWindow();
-        stage.close();
     }
 
     @FXML

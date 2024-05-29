@@ -1,59 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-
 <?import javafx.scene.chart.NumberAxis?>
-<StackPane fx:id="base" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.wellnessapp.controller.MoodChartController">
-    <VBox styleClass="chart-wrapper">
-        <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-        </padding>
-        <HBox prefHeight="39.0" prefWidth="500.0">
-            <HBox alignment="CENTER_LEFT" prefHeight="39.0">
-                <Button onAction="#onHomeBtn" prefHeight="30.0" prefWidth="87.0" text="Go Home"/>
-            </HBox>
-<!--            <HBox alignment="CENTER_RIGHT" prefHeight="39.0" prefWidth="261.0" spacing="10.0" HBox.hgrow="ALWAYS">-->
-<!--                <Label fx:id="userEmail" alignment="CENTER_RIGHT" contentDisplay="CENTER" maxHeight="-Infinity"-->
-<!--                       maxWidth="1.7976931348623157E308" minWidth="-Infinity" text="email" textAlignment="RIGHT"-->
-<!--                       textOverrun="CLIP" HBox.hgrow="ALWAYS">-->
-<!--                    <opaqueInsets>-->
-<!--                        <Insets/>-->
-<!--                    </opaqueInsets>-->
-<!--                    <font>-->
-<!--                        <Font size="16.0"/>-->
-<!--                    </font>-->
-<!--                </Label>-->
-<!--                <ImageView cache="true" fitHeight="49.0" fitWidth="55.0" preserveRatio="true"-->
-<!--                           styleClass="user-icon">-->
-<!--                    <image>-->
-<!--                        <Image url="@images/undraw_Male_avatar_g98d.png"/>-->
-<!--                    </image>-->
-<!--                    <viewport>-->
-<!--                        <Rectangle2D/>-->
-<!--                    </viewport>-->
-<!--                </ImageView>-->
-<!--            </HBox>-->
-        </HBox>
-        <AreaChart fx:id="chart" legendVisible="false" title="Mood History" VBox.vgrow="ALWAYS">
-            <xAxis>
-                <CategoryAxis label="Date" side="BOTTOM"/>
-            </xAxis>
-            <yAxis>
-                <NumberAxis label="Mood" side="LEFT"/>
-            </yAxis>
-        </AreaChart>
-    </VBox>
-</StackPane>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+<AnchorPane fx:id="base" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wellnessapp.controller.MoodChartController">
+   <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Tab closable="false" text="View Chart" styleClass="mood-tab">
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="579.0" prefWidth="900.0">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <HBox>
+                  <VBox>
+                     <Label text="Mood Chart">
+                        <font>
+                           <Font size="32.0"/>
+                        </font>
+                     </Label>
+                     <Label text="View your mood over time graphically!">
+                        <font>
+                           <Font size="12.0"/>
+                        </font>
+                     </Label>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <Button onAction="#onHomeButton" text="Home"/>
+                  </HBox>
+               </HBox>
+               <AreaChart fx:id="chart" legendVisible="false"  VBox.vgrow="ALWAYS">
+                  <xAxis>
+                     <CategoryAxis side="BOTTOM"/>
+                  </xAxis>
+                  <yAxis>
+                     <NumberAxis side="LEFT"/>
+                  </yAxis>
+               </AreaChart>
+            </VBox>
+         </AnchorPane>
+      </Tab>
+      <Tab closable="false" text="Update Entry" styleClass="mood-tab">
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <padding>
+               <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+            </padding>
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <HBox>
+                  <VBox.margin>
+                     <Insets/>
+                  </VBox.margin>
+                  <VBox>
+                     <Label text="Mood Entries">
+                        <font>
+                           <Font size="32.0"/>
+                        </font>
+                     </Label>
+                     <Label text="Modify and adjust your mood history if you've made a mistake!">
+                        <font>
+                           <Font size="12.0"/>
+                        </font>
+                     </Label>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <Button onAction="#onHomeButton" text="Home"/>
+                  </HBox>
+               </HBox>
+               <HBox prefWidth="400" VBox.vgrow="ALWAYS">
+                  <padding>
+                     <Insets bottom="20.0" top="20.0"/>
+                  </padding>
+                  <ListView fx:id="moodListView" styleClass="mood-list" prefWidth="400" minWidth="300" maxWidth="400" />
+                  <VBox HBox.hgrow="ALWAYS">
+                     <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                           <Insets left="20.0"/>
+                        </padding>
+                        <VBox spacing="5.0">
+                           <Label contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0"
+                                  text="Date"/>
+                           <DatePicker fx:id="moodDate" />
+                        </VBox>
+                        <VBox spacing="5.0">
+                           <Label contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0" text="Mood"/>
+                           <ComboBox fx:id="moodCombo" promptText="Select mood" prefWidth="160">
+                              <items>
+                                 <FXCollections fx:factory="observableArrayList" >
+                                    <String fx:value="Happy" />
+                                    <String fx:value="Neutral" />
+                                    <String fx:value="Sad" />
+                                 </FXCollections>
+                              </items>
+                           </ComboBox>
+                        </VBox>
+                        <VBox prefHeight="48.0" spacing="5.0">
+                           <Label contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0"
+                                  text="Time"/>
+                           <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                              <Spinner fx:id="moodHour" initialValue="0" min="0" max="23" prefHeight="26.0" prefWidth="60.0"/>
+                              <Spinner fx:id="moodMinute" initialValue="0" min="0" max="59" prefHeight="26.0" prefWidth="60.0"/>
+                           </HBox>
+                        </VBox>
+                        <VBox prefHeight="100.0" spacing="5.0">
+                           <Label contentDisplay="RIGHT" prefHeight="18.0" prefWidth="70.0"
+                                  text="Comment"/>
+                           <HBox prefHeight="74.0" prefWidth="200.0">
+                              <TextArea fx:id="moodComment" prefHeight="74.0" prefWidth="320.0"/>
+                           </HBox>
+                        </VBox>
+                        <HBox prefHeight="26.0" spacing="10.0">
+                           <Button onAction="#onUpdate" prefHeight="26.0" prefWidth="100.0" text="Update"/>
+                           <Button onAction="#onDelete" prefHeight="26.0" prefWidth="100.0" text="Delete"/>
+                           <Button onAction="#onNewEntry" prefHeight="26.0" prefWidth="100.0" text="New Entry"/>
+                        </HBox>
+                     </VBox>
+
+                  </VBox>
+               </HBox>
+            </VBox>
+         </AnchorPane>
+      </Tab>
+   </TabPane>
+</AnchorPane>
